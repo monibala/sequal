@@ -27,3 +27,4 @@ urllib3==1.26.7
 webencodings==0.5.1
 zstandard==0.16.0
 pandas
+gunicorn==20.1.0
