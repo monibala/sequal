@@ -1,1 +1,1 @@
-waitress-serve --listen=*:8000 sequal.wsgi:application
+web: gunicorn sequal.wsgi --log-file -
