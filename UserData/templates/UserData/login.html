@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load custumfilter %}
+{% with ''|getAbout as aboutdata %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequel | {{pagetitle}}</title>
+    <link href=" {% static 'css/main.css' %} " rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+</head>
+<style>
+
+    .z{
+     
+        height:670px;
+        width:700px;
+        background: #e6eeff;
+        margin-top:-50px;
+        margin-left:-30px;
+    }
+
+ .c{
+     
+     height:670px;
+     width:660px;
+     background:#ccddff;
+ }
+ .a{
+     height:700px;
+     width:1350px;
+     position:fixed;
+ }
+
+ .d{
+     margin-left:60px;
+     margin-top:40px;
+     color:#0066cc;
+ }
+
+ .e{
+     color:black;
+     font-size:12px;
+     margin-left:60px;
+ }
+
+ .f{
+    margin-left:60px;
+    margin-top:40px;
+    color:black;
+ }
+
+ .g{
+    margin-left:60px;
+    width:60px;
+    text-align:center;
+    background:#4fb1db;
+    color:white;
+    border:1px solid #4fb1db;
+    height:40px;
+    border-radius:5px 0px 0px 5px;
+ }
+
+ .h{
+     margin-left:-10px;
+     height:30px;
+     width:350px;
+     border-radius:0px 5px 5px 0px;
+     border:1px solid #4fb1db;
+ }
+
+ .i{
+    margin-left:60px;
+    margin-top:20px;
+ }
+
+ .j{
+    margin-left:60px; 
+    margin-top:20px; 
+    background:#4fb1db;
+    border:none;
+    width:120px;
+    height:40px;
+    color:white;
+    border-radius:5px ;
+ }
+
+
+
+     </style>
+
+<body>
+    <div class="login-page" id="pagename">
+        {% comment %} {% include 'header.html' with aboutdata=aboutdata %} {% endcomment %}
+
+        <div class="a">
+           
+            <div class="" id="login-container">
+                <div class="row">
+                    
+                    <div class="col-lg-6 p-lg-5">
+                        <div class="z">
+                        <img src="/static/images/logo.png" style="height:50px;width:120px;margin-top:50px;margin-left:60px;">
+                        <h3 class="d">Login/Register</h3>
+                        <h6 class="e">Welcome to SEQUEL!</h6>
+                        <p class="f">Please enter your Mobile Number to proceed</p>
+                        <form action="{% url 'userlogin' %}?next={{request.GET.next}}" id="loginform">
+                            {% csrf_token %}
+                            <input class="g" type="text" value="+91" readonly>
+                            <input style=" margin-left:-10px;height:40px;width:350px;border-radius:0px 5px 5px 0px;
+                            border:1px solid #4fb1db;" type="number" name="phone" placeholder="  123 456 789 0"  maxlength="10" minlength="10" required >
+                            {% comment %} <input type="number"  name="phone" id="" maxlength="10" minlength="10" required >  {% endcomment %}
+                            <div id="otpdiv"></div>
+                            <div id="errordiv" class="text-danger"></div>
+                            <div id="loadingdiv"></div>
+                            <input class="i" type ="checkbox" class="proceed mt-5 "> I accept all the <span
+                            class="text-info">Terms and Conditions</span> &amp; <span class="text-info">Privacy
+                            Policy</span>
+                            <br>
+                            <input type="submit" value="Login" class="j">
+                        </form>
+                    
+                        <img src="/static/images/rec.png" style="height:170px;width:170px;margin-top:50px;">
+                    </div>
+
+                </div>
+
+                    <div class="col-lg-6">
+                        <div class="c">
+                        <img src="/static/images/computer.png" style="height:500px;width:500px;margin-left:70px;margin-top:70px;">
+                        </div>
+                        
+                    </div>
+                
+                </div>
+               
+            </div>
+          
+        </div>
+        <br><br>
+        {% comment %} {% include 'footer.html' with aboutdata=aboutdata %} {% endcomment %}
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script src=" {% static 'js/index.js' %} "></script>
+        <script>
+            AOS.init();
+        </script>
+        <script>
+            $("#loginform").submit(function (e) {
+
+                e.preventDefault(); // avoid to execute the actual submit of the form.
+
+                var form = $(this);
+                var actionUrl = form.attr('action');
+                var input = form.children("input[name=phone]")
+                var otpdiv = $("#otpdiv")
+                var errordiv = $("#errordiv")
+                var loadingdiv = $("#loadingdiv")
+                errordiv.html('')
+                if (input.val().length!=10){
+                    errordiv.html("Please Enter a Valid Phone Number")
+                    return false
+                }
+                loadingdiv.html(`<center><img src="/static/Spinner-1s-44px.gif" alt="loading"></center>`)
+                $.ajax({
+                    type: "POST",
+                    url: actionUrl,
+                    data: form.serialize(), // serializes the form's elements.
+                    success: function (data) {
+                        console.log(data)// show response from the php script.
+                        $("#login-container").html(data);
+                        $("#pagename").attr('class', 'otp-page')
+                    }
+                });
+
+            });
+        </script>
+    </div>
+</body>
+{% endwith %}
+
+</html>

@@ -1,0 +1,283 @@
+
+
+{% extends 'UserData/user/userbasic.html' %}
+{% block user %}
+
+<div style="margin-left:-30px;">
+
+<div class="Family-headingdiv text-left" style="background:#cce6ff;">
+    <h3 style="color:#0066cc;font-weight:bold">My Family &amp; Friends</h3>
+
+   
+
+</div>
+
+<div class="Retake-Healthkarmadiv f-div" style="background:#cce6ff;">
+
+
+    <div class="alert alert-danger" id="family_list_error_div" style="display:none;">
+    </div>
+
+    <div id="myfamily_list_div" >
+        <div class="add-box" style="background:#b3e0ff">
+            <div class="row" >
+                <div class="col-sm-5">
+                    <div class="table-responsive">
+                        <table class="table" >
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Test</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr>
+                                    <td class="db_titlecaption">Age : </td>
+                                    <td class="db_titleinfo">{{user.age}} Years</td>
+                                </tr>
+                                <tr>
+                                    <td class="db_titlecaption">Relation : </td>
+                                    <td class="db_titleinfo">Self</td>
+                                </tr>
+                                <tr>
+                                    <td class="db_titlecaption">Gender : </td>
+                                    <td class="db_titleinfo">{{user.gender}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="db_titlecaption">Mobile Number : </td>
+                                    <td class="db_titleinfo">{{user.phone}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% for data in request.user.Family.all %}
+        <div class="add-box" style="background:#b3e0ff">
+            <a class="edit" data-toggle="modal" data-target="#family_edit" onclick="editFamily('{{data.id}}');"> <img
+                    src="/static/images/edit-icon.png">
+            </a>
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">{{data.name}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="db_titlecaption">Age : </td>
+                                    <td class="db_titleinfo">{{data.age}} Years</td>
+                                </tr>
+                                <tr>
+                                    <td class="db_titlecaption">Relation : </td>
+                                    <td class="db_titleinfo">{{data.relation}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="db_titlecaption">Gender : </td>
+                                    <td class="db_titleinfo">{{data.gender|title}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="db_titlecaption">Mobile Number : </td>
+                                    <td class="db_titleinfo">{{data.mobile}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+        <span class="addmemberright">
+            <a class="btn btn-danger btn_cmncolor_right ga_add_member_button" data-toggle="modal" data-target="#family_edit"
+                onclick="addFamily()" id="addnewmember" style="background:#0066cc;color:white;border:none;">Add New Member</a>
+        </span>
+    </div>
+</div>
+</div>
+</div>
+<div class="modal fade addfamilymember in" id="family_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background:#4fb1db ;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="clearfix"></div>
+            <form class="" id="add_family_form" name="add_family_form" method="post">
+                <div class="modal-body">
+
+                    <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 mar-top select-member-option">
+
+                        <div class="col-sm-12 text-center modaltitle">
+                            <h2 id="add_edit_title"> Add Family Member </h2>
+                            <!-- <img class="lazy-loaded" data-src="/static/images/underline.png" alt="underline"
+                                src="/static/images/underline.png"> -->
+                        </div>
+
+                        {% csrf_token %}
+                        <input type="hidden" name="familid" id="familid" value="">
+                        <input type="hidden" name="user" value="{{request.user.id}}">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 editmembermidhgt">
+                            <div class="field_myfamilyblade">
+                                <input name="name" id="username" type="text" class="ic_user" placeholder="Name *"
+                                    tabindex="1" maxlength="512" required autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 editmembermidhgt">
+                            <div class="field_myfamilyblade">
+                                <select class="ic_family relationwith valid" name="relation" id="relation" tabindex="2"
+                                    required="">
+                                    <option value="" selected="selected">Select Relation</option>
+                                    <option value="Spouse">Spouse</option>
+                                    <option value="Child">Child</option>
+                                    <option value="Parent">Parent</option>
+                                    <option value="Grand Parent">Grand Parent</option>
+                                    <option value="Sibling">Sibling</option>
+                                    <option value="Friend">Friend</option>
+                                    <option value="Relative">Relative</option>
+                                    <option value="Neighbour">Neighbour</option>
+                                    <option value="Colleague">Colleague</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 editmembermidhgt">
+                            <div class="field_myfamilyblade">
+                                <input name="mobile" id="mobile" type="tel" class="ic_phone" placeholder="Mobile No."
+                                    tabindex="3" maxlength="10" minlength="10" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 editmembermidhgt">
+                            <div class="field_myfamilyblade">
+                                <input type="text" class="ic_age userage" id="age" name="age" tabindex="4"
+                                    placeholder="Age *" maxlength="3" required autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 editmembermidhgt" id="dob_date_picker">
+                            <div class="field_myfamilyblade">
+                                <input type="date" class="dateofbirth ic_date" id="dob" name="dob" tabindex="5"
+                                    placeholder="Date of Birth *" required autocomplete="off">
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 editmembermidhgt">
+                            <div class="field_myfamilyblade">
+                                <input name="email" id="email" type="email" class="ic_email" placeholder="Email ID"
+                                    maxlength="512" tabindex="6" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 editmembermidhgt">
+                            <div class="gendermyfamily">
+                                <div class="genderOptions">
+                                    <div class="genderopt radio_genoption">
+                                        <ul>
+                                            <li>
+
+                                                <input name="gender" value="male" type="radio" id="checkbox6"
+                                                    tabindex="7" required>
+                                                <label for="checkbox6">Male</label>
+
+                                            </li>
+
+                                            <li>
+                                                <input name="gender" value="female" type="radio" id="checkbox7"
+                                                    tabindex="8" required>
+                                                <label for="checkbox7">Female</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input id="customer_id" name="customer_id" type="hidden" value="">
+                        <input id="device_source" name="device_source" type="hidden" value="">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="modal-footer-popup">
+                    <button type="submit" tabindex="9" class="btn btn-primary">Save
+                        changes
+                    </button>
+                    <br>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- <script type="text/javascript">
+    $(document).ready(function () {
+           $(document).on("click",'#addnewmember',function(){
+               console.log( $('#family_edit').attr("class"))
+              if(!$('#family_edit').hasClass("show")){
+                $('#family_edit').addClass('in')
+              }
+           });
+});
+
+</script> -->
+
+
+
+<script>
+    function ajaxCallPromise(api_url, method, request_data, loader = true) {
+        var promiseObj = new Promise(function (resolve, reject) {
+            $.ajax({
+                url: api_url,
+                type: method,
+                data: request_data,
+                beforeSend: function () {
+                    if (loader) {
+                        $("#ajax-loader").show();
+                    }
+                },
+                success: resolve,
+                error: reject
+            });
+        });
+        return promiseObj;
+    }
+
+    function editFamily(customer_id) {
+        getFamily_api_url = "{% url "getmember" %}?memberid=" + customer_id
+        $("#add_edit_title").text("Edit Family Member");
+        $('#add_family_form')[0].reset();
+
+        $("#customer_id").val("");
+        $("#customer_id").val(customer_id);
+
+        ajaxCallPromise(getFamily_api_url, "GET", null).then((data) => {
+            console.log(data);
+            $("#username").val(data.name);
+            $("#relation").val(data.relation);
+            $("#mobile").val(data.mobile);
+            $("#dob").val(data.dob);
+            $("#email").val(data.email);
+            $("#familid").val(customer_id);
+            $("input[value=" + data.gender + "]").prop('checked', true);
+
+        });
+    }
+
+    function addFamily() {
+        $("#add_edit_title").text("Add Family Member");
+        $('#add_family_form')[0].reset();
+    }
+</script>
+{% endblock %}
+
+<!------aside-end -->

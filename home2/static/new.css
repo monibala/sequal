@@ -1,0 +1,258 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    
+}
+main{
+    background-color: rgb(216, 233, 245);
+    padding-top: 20px;
+   
+}
+.logo{
+    margin-left: 50px;
+    height: 45px;
+    width: 150px;
+}
+.navimage{
+    
+    border-radius: 100%;
+    width: 40px;
+}
+.btn{
+    color: white;
+    background-color: #007bff;
+    margin-left: -260px;
+    border: none;
+}
+.carousel{
+    width: 1200px;
+    height: 400px;
+    margin-left: 55px;
+    margin-top: 10px;
+   
+}
+
+.searchbar{
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-left: 270px;
+    background-color: white;
+
+}
+.bar{
+    margin-top: 15px;
+    padding: 6px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: rgb(216, 233, 245);
+    border-color: #66a9f2;
+    color: #66a9f2;
+}
+.search{
+    background-color: #4c9df5;
+    height: 40px;
+    width: 40px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    color: white;
+}
+.text
+{
+   padding: 100px;
+   margin-left: 135px;
+}
+
+.card{
+    width: 21%;
+    margin: 25px;
+    display: inline-block;
+border-radius: 20px; 
+border-color: #4b5498;
+padding: 25px;
+font-weight: 700;
+background-color: rgb(216, 233, 245);
+}
+.know-more{
+   margin-left: 10px;
+/* display: inline-block; */
+border-color: #66a9f2;
+border-radius: 6px;
+background-color: white;
+}
+.riskpackage{
+    background-color: white;
+    text-align: center;
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+.habitpackage{
+    background-color: rgb(216, 233, 245);
+    text-align: center;
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+.card2{
+    width: 8%;
+    text-align: center;
+    margin: 25px;
+    display: inline-block;
+border-radius: 20px; 
+border-color: #4b5498;
+padding: 25px;
+font-weight: 700;
+background-color: white;
+}
+.card3{
+    background-color:rgb(216, 233, 245) ;
+    margin-top: 15px;
+border-color: #4b5498;
+width: 8%;
+text-align: center;
+margin: 25px;
+font-weight: 700;
+display: inline-block;
+}
+.view{
+    font-weight: 400;
+    border: none;
+    border-radius: 6px;
+    padding: 6px;
+    margin: 3px;
+    background-color: #4b9cf4;
+    color: white;
+}
+.cards2{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    /* height: 5%; */
+    border-color: #4b5498;
+    text-align: center;
+    font-weight: 700;
+    background-color: white;
+}
+.newcard{
+    width: 21%;
+    margin: 25px;
+    height: 6% ;
+    display: inline-block;
+border-radius: 20px; 
+border-color: #4b5498;
+padding: 40px;
+font-weight: 700;
+background-color: rgb(216, 233, 245);
+}
+.colorchange{
+    color: #66a9f2;
+}
+.prefinal
+{
+    margin-left: 100px;
+    background-color: rgb(216, 233, 245);
+}
+.half{
+    width: 45%;
+    padding: 10px;
+    padding-top: 90px;
+    border: #042f5c;
+    display: inline-block;
+    text-align: justify;
+    font-weight: 500;
+    padding-bottom: 90px;
+}
+.half2{
+    width: 45%;
+    padding-top: 8px;
+    margin-top: 20px;
+    border: #042f5c;
+    display: inline-block;
+    text-align: justify;
+    font-weight: 500;
+}
+.paragraph{
+    padding-top: 150px;
+}
+.tubes{
+width: 100%;
+height: 350px;
+border-radius: 8px;
+}
+.know-more2{
+    background-color: #66a9f2;
+    border-radius: 6px;
+    border: none;
+    padding: 4px;
+    color: white;
+}
+.testimonials{
+    text-align: center;
+    background-color: white;
+    padding-top: 20px;
+    padding-bottom: 30px;
+   
+}
+.first{
+    background-color: rgb(171, 169, 169);
+width: 28%;
+padding: 5px;
+position: relative;
+/* z-index: 20px; */
+border-radius: 8px;
+display: inline-block;
+}
+.second{
+    border-radius: 8px;
+    padding: 5px;
+    background-color: rgb(57, 134, 235);
+    width: 28%;
+    position: relative;
+    display: inline-block;
+}
+.third{
+    padding: 5px;
+    background-color: rgb(171, 169, 169);
+    border-radius: 8px;
+    width: 28%;
+    position: relative;
+    display: inline-block;
+}
+footer{
+    background-color: #2d83e0;
+}
+.text-reset{
+    color: white;
+    font-size: large;
+}
+.contact-text{
+    color: white;
+    font-size: large;
+}
+.acidity{
+    width: 70px;
+}
+.line{
+    width: 30%;
+    height: 20px;
+    color: black;
+}
+.riskline{
+    width: 15%;
+    height: 20px;
+    margin-left: 570px;
+    color: black;
+}
+.newimg{
+    width: 200px;
+    height: 185px;
+}
+.uploadbtn{
+     background-color: white;
+     font-weight: 300;
+     border-radius: 25px;
+     padding: 5px;
+     margin-right: 4px;
+}
+.dropdown{
+    margin-left: 300px;
+}

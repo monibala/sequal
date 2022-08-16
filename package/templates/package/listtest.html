@@ -1,0 +1,27 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block body %}
+<div class="location container my-3">
+    <a href="/" style="color: #000">Home</a>
+    <i class="fa fa-angle-right"></i>
+    <a  style="color: #ff9800; ">{{category.name}}</a>
+</div>
+<div class="first container">
+    <h3>{{category.name}} tests </h3>
+    <p>
+       {{catagory.describe}}
+    </p>
+
+</div>
+<div class="container">
+    <div class="justify-content-center align-items-center d-flex flex-wrap">
+        {% for data in packages %}
+            
+        {% include 'package/component/packageItem.html' with data=data %}
+        {% endfor %}
+    </div>
+</div>
+<div class="second container">
+    {{category.description|safe}}
+</div>
+{% endblock %}

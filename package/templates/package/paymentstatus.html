@@ -1,0 +1,26 @@
+{% extends 'basic.html' %}
+{% block body %}
+<div class="container my-5">
+    {% if response.RESPCODE == "01" %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container text-center">
+          <h1 class="display-4">Thank you For The Purchase !!</h1>
+          <p class="lead">Your package is succssfully booked Your Booking Id is {{response.ORDERID|upper}}</p>
+        </div>
+      </div>
+      {% else %}
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container text-center">
+          <h1 class="display-4">Your Payment is Failed </h1>
+          <p class="lead">{{response.RESPMSG}}</p>
+        </div>
+      </div>
+      {% endif %}
+</div>
+<script>
+    setTimeout(function(){
+               window.location.href = '{% url 'booking' %}';
+            }, 5000);
+   
+   </script>
+{% endblock %}

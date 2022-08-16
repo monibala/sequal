@@ -1,0 +1,577 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block body %}
+<style>
+    .bg-primary {
+        background:#0088cc  !important;
+    }
+
+    .text-secondary {
+        color: #0088cc!important;
+    }
+
+    .bg-secondary {
+        background: red !important;
+    }
+
+    .text-primary {
+        color: #0088cc !important;
+    }
+
+    .addressbox input[type=checkbox] {
+        position: absolute !important;
+        top: 25px;
+        right: 23px;
+    }
+
+    div.Addressbuttons button,a.btn-btn {
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
+        box-sizing: border-box;
+        margin: 0;
+        font: inherit;
+        overflow: visible;
+        text-transform: none;
+        -webkit-appearance: button;
+        cursor: pointer;
+        font-family: inherit;
+        line-height: inherit;
+        background: #0088cc;
+        border: 1px solid #4fb1db;
+        color: #fff;
+        font-size: 15px;
+        border-radius: 30px;
+        padding: 10px 35px;
+    }
+
+    input.coupeninput {
+        padding: 5px 14px;
+        font-size: 16px;
+        letter-spacing: 2px;
+        border-radius: 25px;
+        border: 1px solid #d3d3d3;
+        width: 55%;
+
+        margin-bottom: 15px;
+    }
+
+    input.coupenButton {
+        box-sizing: border-box;
+        font: inherit;
+        font-family: inherit;
+        font-size: inherit;
+        -webkit-appearance: button;
+        background: none repeat scroll 0 0 #0088cc;
+        border: medium none;
+        color: #fff;
+        cursor: pointer;
+        position: absolute;
+        border-radius: 30px;
+        margin-left: 5px;
+        padding: 4px;
+        width: 80px;
+        line-height: 27px;
+
+    }
+
+    .cpninput {
+        float: initial;
+        display: initial;
+        position: relative;
+    }
+    .select-member-option input {
+    font-size: 14px;
+    margin: 0;
+    width: 100%;
+    padding: 16px 10px 15px 0;
+    display: block;
+    border: none;
+    border-top-color: currentcolor;
+    border-right-color: currentcolor;
+    border-bottom-color: currentcolor;
+    border-bottom-style: none;
+    border-bottom-width: medium;
+    border-left-color: currentcolor;
+    border-top-color: currentcolor;
+    border-right-color: currentcolor;
+    border-bottom-color: currentcolor;
+    border-bottom-style: none;
+    border-bottom-width: medium;
+    border-left-color: currentcolor;
+    border-bottom: 1px solid #717171;
+    border-bottom-color: #717171;
+    border-bottom-color: #717171;
+    height: 52px;
+    border-radius: 0;
+    line-height: 22px;
+    box-shadow: none !important;
+    margin-bottom: 0;
+}
+.select-member-option .normal-input {
+    margin-bottom: 35px;
+    min-height: 98px;
+}
+html{
+    scroll-behavior: smooth;
+}
+</style>
+<div class="container">
+    <div class="row my-5">
+
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
+            <form method="post" enctype="multipart/form-data">{% csrf_token %}
+                <div class="p-3 shadow p-3 mb-2 bg-white rounded" style="background: rgb(226, 241, 248)!important;">1 {{user.first_name|title}} | +91 {{user.phone}}</div>
+                <div class="shadow mb-2" style="background: rgb(226, 241, 248)!important;">
+                    <div class="p-3  text-light bg-primary" >2 Add Member</div>
+                    <div class="p-3 ">
+
+                        <div class="row">
+                            <div class="p-3 col-sm-4">
+                                <div class="p-3 text-sm shadow-sm addressbox">
+                                    <span>{{user.first_name|title}} {{user.last_name|title}},</span><br>
+                                    <small>Self,</small><br>
+                                    <small>{{user.gender|title}} , {{user.age|title}} yrs</small>
+                                    <input type="checkbox" class="familymember" name="self" id="memberself" checked>
+                                </div>
+                            </div>
+                            {% for data in family %}
+                            <div class="p-3 col-sm-4">
+                                <div class="p-3 text-sm shadow-sm addressbox">
+                                    <span>{{data.name|title}},</span><br>
+                                    <small>{{data.relation|title}}</small><br>
+                                    <small>{{data.gender|title}} , {{data.age}} yrs</small>
+                                    <input type="checkbox" class="familymember" name="member{{data.id}}"
+                                        id="member{{data.id}}" checked="checked">
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="Addressbuttons">
+                            <a href="{% url 'family' %}?next={{request.path}}"><button type="button" onclick="window.location='{% url 'family' %}?next={{request.path}}'" class="mx-2">Add More
+                                    Member</button></a>
+                            <a class="mx-2 btn-btn nxtbutton" data-toggle="collapse" data-target="#collapseExample"
+                                aria-expanded="false" href="#selectaddress" aria-controls="collapseExample">next</a>
+                        </div>
+                    </div>
+                </div>
+                <div class=" shadow  mb-2 bg-white rounded" style="background: rgb(226, 241, 248)!important;">
+                    <div class="p-3">3 Add Sample Collection Address, Date & Time</div>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card-body">
+                            <div class="row" id="selectaddress">
+                                {% if address %}
+                                {% for data in address %}
+                                <div class="p-3 col-sm-6">
+                                    <div class="p-3 text-sm shadow-sm addressbox d-flex flex-row">
+                                        <div><input class="mx-1" type="radio" value="{{data.id}}" name="address" id="address{{data.id}}"
+                                                required></div>
+                                        <div> <label for="address{{data.id}}"> <small>
+                                                    House no.: {{data.houseno|title}}, {{data.city|title}}, {{data.state|title}}, India -
+                                                    {{data.pin}}
+                                                </small></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% else %}
+                                <!-- <div class="alert alert-warning alert-dismissible fade show">
+                                    <strong>Warning!</strong> Please Add Atleast One Address
+                                </div> -->
+                                    <div class="modal-body">
+                                        <div class="col-md-12 row col-xs-12 col-sm-12 col-lg-12 select-member-option">
+            
+                                            <div class="col-sm-12 text-center commonpopup_title">
+                                                <h2 id="add_edit_title" style="color:#0088cc;">Add New Address</h2>
+                                                <img class="lazy-loaded" data-src="/img/underline.png" alt="underline" src="/static/images/underline.png" style="color:#0088cc;">
+                                               
+                                            </div>
+                                            
+                                            <div class="clearfix"></div>                       
+                                            
+                                            {% csrf_token %}
+                                            <div class="text-success my-2" id="infomessage"></div>
+                                            
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 normal-input">
+                                                <label>Pincode *</label>
+                                                <div class="text-danger" id="errormsg" ></div>
+                                                <input autocomplete="off" id="pincode" maxlength="6" minlength="6" name="pin" placeholder="Enter Pincode" required="true" tabindex="3" type="text"><br>
+                                                
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 normal-input">
+                                                <label>City, State</label>
+                                                <input  id="city_state" name='city_state' placeholder="Enter your City, State" tabindex="3" type="text"  >
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 normal-input loc_autodiv">
+                                                <label class="loc_label">Colony / Area / Sector* 
+                                                </label>
+                                                <input type="hidden" name="id" id="addressid">
+                                                <select id="locality" name="city" class="mt-2" placeholder="Enter Locality" required="true" style="
+                                                    width: 100%;
+                                                    border: 0px;
+                                                    border-bottom: 1px solid rgb(113, 113, 113);
+                                                    font-size: 14px;
+                                                    padding-bottom: 11px;
+                                                    padding-top: 11px;
+                                                    border-radius: 0.25rem;" tabindex="-1" class="select2" aria-hidden="true">
+                                                 <option value="" selected="">Select Your City *</option>
+                                                
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 normal-input hno_autodiv">
+                                                <label>House No. / Flat / Building / Landing *</label>
+                                                <input autocomplete="off" id="house_number" name="houseno" maxlength="512" placeholder="Enter House Number" required="true" tabindex="1" type="text" >
+                                            </div>
+                                            
+                                           
+                                           <input type="hidden" id="statein" name="state" >
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="my-3" ></div>
+                            <p class="text-primary">CHOOSE DATE & TIME FOR HOME SAMPLE COLLECTION</p>
+                            <div class="row mb-3">
+                                <div class="col-sm-6">
+                                    <input type="date" id="collectiondate" name="colletiondate" class="form-control"  required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="time" name="colletiontime" class="form-control" required>
+                                </div>
+                            </div>
+                            <small>* Choose sample collection date & time to proceed further</small>
+                            <div class="Addressbuttons">
+                                <a href="{% url 'address' %}?next={{request.path}}"><button type="button" onclick="window.location='{% url 'address' %}?next={{request.path}}'" class="mx-2">Add More
+                                        Address</button></a>
+                                <button class="mx-2 nxtbutton" type="button" data-toggle="collapse"
+                                    data-target="#collapseExample1" aria-expanded="false"
+                                    aria-controls="collapseExample1" style="border:#0088cc;">next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" shadow  mb-2 bg-white rounded" style="background: rgb(226, 241, 248)!important;">
+                    <div class="p-3" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false"
+                        aria-controls="collapseExample1">4 Payment Option</div>
+                    <div class="collapse" id="collapseExample1">
+                        <div class="card-body">
+                            <div class="shadow-sm p-3 mb-2">
+                                <div class="my-3"></div>
+                                <div class="mb-3">
+                                    <img src="/static/images/coupon-card.png" class="mb-3">Apply Coupon here<br>
+                                    <div class="mx-2" style="display: none;" id="coupencard">
+                                        <div class="d-flex justify-content-between col-md-6 col-sm-12 col-xm-12 p-3 border border-success ">
+                                            <div class="d-flex">
+                                                <div class="align-self-center text-bg text-success">
+                                                    <i
+                                                        class="fa fa-check mr-3 rounded-circle border border-success p-2"></i>
+                                                </div>
+                                                <div class="align-self-center">
+                                                    <strong><small class="text-success">
+                                                        <span id=coupencode></span>
+                                                    </small>
+                                                    </strong><br>
+                                                    <strong
+                                                        class="text-success">Applied</strong>
+                                                    <br>
+                                                    <small><span id="coupenmsg"></span></small>
+                                                </div>
+                                            </div>
+                                            <div class="align-self-center"><a href="" class="text-danger">remove</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-none" id="couperloader">
+                                    <div class="d-flex my-2 align-items-center">
+                                        <strong>Loading...</strong>
+                                        <div class="spinner-border text-danger ml-auto" role="status" aria-hidden="true"></div>
+                                      </div>
+                                    </div>
+                                    <div class="text-danger mx-2 " style="display:none;" id="coupenerror">invalid coupen</div>
+                                    <!-- <div class="text-danger d-none" id="coupenerror">invalid coupen</div> -->
+                                    <input type="text" class="coupeninput my-2" id="coupeninput" name="coupencode" placeholder="Enter Coupen">
+                                    <input type="hidden" class="coupeninput my-2" id="coupeninputcopy" name="coupencode" placeholder="Enter Coupen">
+                                    <input type="button" class="coupenButton my-2" id="coupensubmit" value="Apply">
+                                </div>
+                                <div>
+                                    <small>* Choose sample collection date & time to proceed further</small>
+                                </div>
+                            </div>
+                            <div class="p-3 shadow-sm p-3 mb-2 bg-white rounded" id='' style="background: rgb(226, 241, 248)!important;">
+                                <input type="radio" name="payoption" id="paytm" value="paytm" class="mx-2"><label
+                                    for="paytm"> <img src="/static/images/paytm_payment.png" alt=""> Pay with
+                                    Paytm</label>
+                            </div>
+                            <div class="p-3 shadow-sm p-3 mb-2 bg-white rounded" style="background: rgb(226, 241, 248)!important;">
+                                <input type="radio" name="payoption" id='paypal' value="cod" class="mx-2"><label
+                                    for="paypal"><img src="/static/images/cod1.png" style="height: 31px;" class="mx-1" alt="paypal icon">
+                                    Cash on sample collection </label>
+                            </div>
+                            <div class="Addressbuttons">
+                                <button type="submit" class="mx-2">Pay Now</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-4 col-xs-12 packages_section mob_viewport">
+            <div class="p-3 shadow p-3 mb-2 bg-primary text-light font-weight-bold rounded" style = "background:#0088cc!important;">{{type|title}} Details</div>
+
+            {% if type == 'test' %}
+            <div class="p-3 shadow d-flex justify-content-between p-3 mb-2  rounded"  style="background:rgb(226, 241, 248)!important;">
+                <div>
+                    <span>{{test.test_name}}</span><br>
+                    <del class="text-secondary">₹{{test.test_price}} </del> <small
+                        class="text-primary font-weight-bold mx-3">₹{{test.final_cost}}</small>
+                </div>
+                <div>
+                    <small class="p-1 bg-primary text-light" style="background: #0088cc !important;">save
+                        {{test.discount}}{% if '%' not in test.discount %}₹{% endif %}</small>
+                </div>
+            </div>
+            {% else %}
+            <div class="p-3 shadow d-flex justify-content-between p-3 mb-2  rounded"  style="background:rgb(226, 241, 248)!important;">
+                <div>
+                    <span>{{package.Package_name}}</span><br>
+                    <del class="text-secondary">₹{{package.Package_price}} </del> <small
+                        class="text-primary font-weight-bold mx-3">₹{{package.final_cost}}</small>
+                </div>
+                <div>
+                    <small class="p-1 bg-primary text-light" style="background: #0088cc !important;">save
+                        {{package.discount}}{% if '%' not in package.discount %}₹{% endif %}</small>
+                </div>
+            </div>
+            {% endif %}
+            <div class="p-3 shadow p-3 mb-2  font-weight-bold rounded" id="boxmemberself"  style="background:rgb(226, 241, 248)!important;">
+                <div>{{user.first_name|title}}{{user.last_name|title}} | self,</div>
+                <small>Male, {{user.age}} years</small>
+                <hr>
+                {% if type == 'test' %}
+                <div>
+                    <div>{{test.test_name}} Test</div>
+                    <small>{{package.test_name}} Included : 1</small>
+                    <div>
+                        <del class="text-secondary">₹{{test.test_price}} </del> <small
+                            class="text-primary font-weight-bold mx-3 packageprize">₹<span id="prizememberself">
+                                {{test.final_cost}}</span></small>
+                    </div>
+                </div>
+                {% else %}
+                <div>{{package.Package_name}}</div>
+                <small>Total Test Included : {{totaltest}}</small>
+                <div>
+                    <del class="text-secondary">₹{{package.Package_price}} </del> <small
+                        class="text-primary font-weight-bold mx-3 packageprize">₹<span
+                            id="prizememberself">{{package.final_cost}}</span></small>
+                </div>
+                {% endif %}
+            </div>
+            {% for data in member %}
+            <div class="p-3 shadow p-3 mb-2  font-weight-bold rounded" id="boxmember{{data.id}}">
+                <div>{{data.name|title}} | {{data.relation|title}}</div>
+                <small>Male, {{data.age}} years</small>
+                <hr>
+                {% if type == 'test' %}
+                <div>
+                    <div>{{test.test_name}} Test</div>
+                    <small>{{package.test_name}} Included : 1</small>
+                    <div>
+                        <del class="text-secondary">₹{{test.test_price}} </del> <small
+                            class="text-primary font-weight-bold mx-3 packageprize">₹<span id="prizemember{{data.id}}">
+                                {{test.final_cost}}</span></small>
+                    </div>
+                </div>
+                {% else %}
+                <div>{{package.Package_name}}</div>
+                <small>Total Test Included : {{totaltest}}</small>
+                <div>
+                    <del class="text-secondary">₹{{package.Package_price}} </del> <small
+                        class="text-primary font-weight-bold mx-3 packageprize">₹<span
+                            id="prizemember{{data.id}}">{{package.final_cost}}</span></small>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            
+            <div class="shadow p-3" style="background: white!important;">
+                <div id="accountbox">
+                <div class="d-flex justify-content-between">
+                    <div>Price</div>
+                    <div>₹ {{totleprize}}</div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div>Doctor Consultation<span class=" mx-1 badge badge-pill badge-success" style="background: #0088cc;">Success</span></div>
+                    <div><del>₹ 798</del></div>
+                </div>
+            </div>
+
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <div class="font-weight-bold text-primary">Total</div>
+                    <div class="font-weight-bold text-primary">₹ <span id="totlePrize">{{totleprize}}</span></div>
+                </div>
+                <p class="text-success text-center my-4"><small>Your total saving on this health booking ₹
+                        {{totalsaving}}</small>
+                </p>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+    {% endblock %}
+    {% block basicscript %}
+   <script src="/static/js/request.js"></script>
+
+    <script>
+        // funtion for prize change
+        totalprize = $('#totlePrize')
+        packagePrize = $("small.packageprize")
+        $("input.familymember").on("change", function () {
+            $(`#box${this.id}`).toggle()
+            var prize = parseFloat($(`#prize${this.id}`).html())
+            var tprize = parseFloat(totalprize.html())
+            if ($(this).is(":checked")) {
+                tprize = tprize + prize
+            } else {
+                tprize = tprize - prize
+            }
+            totalprize.html(tprize)
+            console.log(prize, tprize)
+            console.log(this.name)
+        })
+        
+        // funtion for couper apply
+        cbutton = $("#coupensubmit")
+        cinput = $("#coupeninput")
+        cerror = $("#coupenerror")
+        cloader = $("#couperloader")
+        cCard = $("#coupencard")
+        coupenmsg = $("#coupenmsg")
+        coupencode = $("#coupencode")
+        accbox = $("#accountbox")
+        cbutton.on("click", function () {
+            showele(cCard,false)
+            showele(cerror,false)
+            showele(cloader,false)
+            cerror.html('')
+            console.log('woring')
+            if (cinput.val().length != 0) {
+                showele(cloader,true)
+                ajaxCallPromise(`{% url 'getCoupenDetails' %}?coupen=${cinput.val()}&ordervalue=${parseFloat(totalprize.html())}`,"GET",null).then((data)=>{
+                    showele(cloader,false)
+                    console.log(data)
+                    if (data.success){
+                        cinput.prop("disabled",true)
+                        $("#coupeninputcopy").val(data.code)
+                        cbutton.prop("disabled",true)
+                        tprize = parseFloat(totalprize.html())
+                        if ((data.discount).includes('%')){
+                            msg = data.discount + " off"
+                            dis = parseFloat(data.discount.replace("%",''))
+                            cdis= (tprize*dis)/100
+                            totalprize.html(tprize -cdis)
+                        }else{
+                            msg =  "₹"+ data.discount 
+                            dis = parseFloat(data.discount)
+                            cdis = dis
+                            totalprize.html(tprize -dis)
+                        }
+                        str = ` <div class="d-flex justify-content-between">
+                            <div>Coupon Discount<span class=" mx-1 badge badge-pill badge-success">Success</span></div>
+                            <div>₹ ${cdis}</div>
+                        </div>`
+                        accbox.append(str)
+                        coupenmsg.html(`${msg}  ${data.message}`)
+                        coupencode.html(data.code)
+                        showele(cCard,true);
+                    }
+                    else{
+                        cerror.html(data.message)
+                        showele(cerror,true);   
+                    }
+                })
+            } else {
+                cerror.html("please enter the coupen code first")
+                showele(cerror,true);
+            }
+        })
+
+        function showele(ele,bul){
+            if(bul){ele.css('display','block')}
+            else{ele.css('display','none')}
+        }
+        $(document).ready(function () {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
+
+            today = yyyy + '-' + mm + '-' + dd;
+            $('#collectiondate').attr('min',today);
+
+        });
+    </script>
+     <script src="/static/js/request.js"></script>
+     <script>
+         
+         pinselect = $("#pincode")
+         pinselect.focusin(function(){
+             $("#errormsg").html('')
+         })
+         $("#locality").on('click',function(){
+             $("#infomessage").html("Enter the Pincode we will populate this field for you")
+             setTimeout(() => {
+                 $("#infomessage").html("")
+             }, 5000);
+         })
+     
+         pinselect.focusout( async function(){
+             url = "https://api.cyberflax.tk/"
+             locationsurl = `${url}api/locations/`
+             data = await makerequest(locationsurl,`?pincode=${this.value}&pagesize=1&data=id,city__name,city__state__name`,pinselect,responce=true)
+             if(data.length ==0){
+                 $("#errormsg").html('invalid pincode')
+             }
+             $("#locality").html(`<option value='${data[0].city__name}' >${data[0].city__name}, ${data[0].city__state__name}</option>`)
+             $("#locality").val(data[0].city__name)
+             $("#city_state").val(`${data[0].city__name}, ${data[0].city__state__name}`)
+             $("#statein").val(data[0].city__state__name)
+         })
+         function addAddress(){
+             $("#add_edit_title").text("Add New Address");
+             $("#locality").html(``)
+             $('#add_family_form')[0].reset();   
+         }
+         
+         function editAddress(addressid) {
+             getFamily_api_url = "{% url "getaddress" %}?addressid="+addressid
+             $("#add_edit_title").text("Edit address");
+             $('#add_family_form')[0].reset();
+     
+             $("#addressid").val("");
+             $("#addressid").val(addressid);
+     
+             ajaxCallPromise(getFamily_api_url, "GET", null).then((data)=>{
+                 console.log(data);
+             $("#locality").html(`<option value='${data.city}'>${data.city}</option>`);
+             $("#house_number").val(data.houseno);
+             $("#pincode").val(data.pin);
+             $("#default_status").prop('checked',data.default);
+             $("#city_state").val(data.state);
+             $("statein").prop(data.state);
+                 
+             });
+         }
+         $('.nxtbutton').on('click',function(){
+             setTimeout(() => {
+                var elmntToView = document.getElementById($(this).attr('aria-controls'));
+                elmntToView.scrollIntoView(); 
+             }, 500);
+         })
+
+     </script>
+
+    {% endblock %}

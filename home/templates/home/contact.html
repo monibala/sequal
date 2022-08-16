@@ -1,0 +1,99 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block body %}
+<div class="contact-page">
+    <div class="heading-sec">
+        <h1>Need to Connect?</h1>
+        <h2>
+            Call Us at: {{contactinfo.0.phone}} <br>
+            Helpline No.: {{contactinfo.0.helpline}}
+        </h2>
+    </div>
+</div>
+<section class="Expedientwraper container py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="Expedient-Healtdiv">
+                    <div class="heading-name my-4  d-flex justify-content-center align-items-center flex-column">
+                        <h1>{{contactinfo.0.companyname}}</h1>
+                        
+                    </div>
+                    <div class="Wing-Floordiv">
+                        <p>{{contactinfo.0.address|linebreaks}}</p>
+                    </div>
+
+                    <div class="contact-info">
+                        <div class="cont-d d-flex">
+                            <div class="contact-heading mr-3">
+                                <p>Helpline No.</p>
+                            </div>
+
+                            <div class="contact-cont">
+                                <p>{{contactinfo.0.phone}}</p>
+
+                                <p>{{contactinfo.0.helpline}} <span style="display:inline;">(Toll free number)</span></p>
+                            </div>
+                        </div>
+
+                        <div class="cont-d d-flex">
+                            <div class="contact-heading mr-3">
+                                <p>Email</p>
+                            </div>
+
+                            <div class="contact-cont">
+                                {% for data in emails %}
+                                <p>{{data.name}}<br>
+                                    <span>{{data.email}}</span>
+                                </p>
+                                {% endfor %}
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 my-5">
+                <div class="For-anyquerydiv text-center">
+                    <p>For any query fill the form below.<br>
+                        For career, related requests use <b><a href="/career">career page</a>.</b></p>
+
+
+
+
+                    <form  id="contact_us" name="contact_us"
+                        method="post">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <input class="form-control" id="name" name="name" placeholder="Name *" type="text"
+                                autocomplete="off" maxlength="255" value="" required>
+                        </div>
+                        <div class="form-group row">
+                            <input class="form-control" id="email_id" name="email"
+                                placeholder="Email Address *" type="email" autocomplete="off" value="" required>
+                        </div>
+                        <div class="form-group row">
+                            <input class="form-control" id="contact_no" name="mobile"
+                                placeholder="Mobile Number *" type="text" minlength="10" maxlength="10" value=""
+                                autocomplete="off" required>
+                        </div>
+                        <div class="form-group row">
+                            <input class="form-control" id="company" name="company" placeholder="Company *"
+                                type="text" value="" autocomplete="off" required>
+                        </div>
+                        <div class="text-area form-group row">
+                            <textarea placeholder="Message" class="form-control" id="message" name="message"
+                                autocomplete="off" value="" maxlength="512" required></textarea>
+                        </div>
+                        <div class="btn-submitform">
+                            <button class="btn-default" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

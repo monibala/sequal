@@ -1,0 +1,301 @@
+{% extends 'basic.html' %}
+{% load static %}
+    {% block body %}
+ 
+  
+    <div id="myCarousel" class="carousel slide lazy-load" data-ride="carousel">
+        <ol class="carousel-indicators">
+            {% for data in sliders %}
+            <li data-target="#myCarousel" data-slide-to="{{forloop.counter}}" class="shadow"></li>
+            {% endfor %}
+        </ol>
+        <div class="carousel-inner">
+            {% for data in sliders %}
+            <div class="carousel-item {% if forloop.counter ==  1 %}active{% endif %}"><a href=" {{data.url}} "
+                    style="width:100%;margin:0px;"><img
+                        src="/media/{{data.img}}" alt="{{data.name}}"></a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="p-4 search" style="display: flex; justify-content: center;">
+        <div class="search-bar">
+                <form method="get" class="row" action="{% url 'search' %}">
+                <input name="q" type="text" placeholder="Find your Package/Test" class="col-lg-10 col-8" style="background:#e6faff;"><button
+                    class="col-lg-2 col-4" style="background:#4fb1db"><i class="fa fa-search" ></i>&nbsp;
+                    Search</button>
+                </form>
+            <!-- <div class="search-sub-menu">
+                <div class="row">
+                    <div class="col-lg-6 col-12">
+                        <h5>Popular Test</h5>
+                        <ul>
+                            <li> CRP (C Reactive Protein) Quantitative, Serum</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                        <h5>Popular Test</h5>
+                        <ul>
+                            <li>Popular Packages</li>
+                            <li>Healthy India 2021 Full Body Checkup</li>
+                            <li>Healthy India 2021 Full Body Checkup With Covid IgG Antibody</li>
+                            <li> Basic Screening Package 3.0</li>
+                            <li>COVID-19 Antibody - IgG Test</li>
+                            <li> Vitamin Screening</li>
+                            <li> Basic Screening Package 4.0</li>
+                            <li>Basic Screening 4.0 Package With Covid IgG Antibody</li>
+                            <li>STI Detection Package</li>
+                            <li>Sequal diagnosis 100% Good Health Package</li>
+                            <li>Basic Allergy Package</li>
+                            <li>Sequal diagnosis Full Body Checkup with Thyroid and CBC</li>
+                            <li>Sequal diagnosis Basic Health Checkup</li>
+                            <li>Sequal diagnosis Diabetic Checkup</li>
+                            <li>HIV Preventive Package</li>
+                        </ul>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <div class="first  mt-5" style="background:#e6faff;">
+        <div class="text col-lg-6 col-12">
+        </div>
+        <h1 class="text-center m-5" style="color: #4fb1db; font-size: 28px;color:black;">Full Body Packages</h1>
+        <hr class="line" style="width:200px;margin-left:730px;border:1px solid black;margin-top:-30px;">
+        <!-- <div class="slides" > -->
+            <div class="justify-content-center align-items-center d-flex flex-wrap infinite-container">
+            {% for data in packages %}
+            
+            {% include 'package/component/packageItem.html' with data=data %}
+            {% endfor %}
+            
+          
+        </div>
+
+        <!-- <center>
+            <br><br>
+            <a href=" {% static '' %} " class="services-btn m-4">View All Services</a>
+        </center> -->
+    </div>
+
+    <div class="second">
+        {% for data in categorys %}
+        <div style="background: {% if forloop.counter|divisibleby:2 %}#e6faff;{% else %}white;{% endif %}">
+            <br>
+            <div class="container health-card-p mt-4">
+                <div class="text col-12">
+                    <h1 style="color: black;">{{data.name}} Packages</h1>
+                    <hr class="line" style="width:200px;margin-left:430px;border:1px solid black;">
+                    <br>
+                </div>
+                <div class="slides-2 ">
+                    {% for da in data.subcategory.all %}
+                    <div class="col-12 col-lg-4 p-2">
+                        <div class="health-card">
+                            <img style="display: flex; align-items:center; justify-content:center;" class="m-auto"
+                                src="{{da.logo.url}}"
+                                alt="Acidity">
+                            <h1 class="text-center " style="color: black;">{{da.name}}</h1>
+                            <p class="text-center">{{da.shortdes|slice:":40"}}</p>
+                            {% comment %} <a href=" {% url 'getbysubcategory' da.slug %} ">View More</a> {% endcomment %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <a href=" {% url 'getbycategory' data.slug %} "><button style="background:#4fb1db;width:150px;border-radius:5px;height:50px;">View Now</button></a>
+                <br>
+            </div>
+        </div>
+      {% endfor %}
+
+    </div>
+    <br><br>
+    <div class="choose-us  ">
+        <div class="heading text-center my-4">
+            <h3 class="my-4" style="color:black;">Why choose SEQUEL&#9658</h3 class="mb-4">
+                <hr class="line" style="width:200px;margin-left:730px;border:1px solid black;">
+        </div>
+        <div class="row">
+            <div class="col-md-12" >
+                <div style="display:flex;padding-left:300px;">
+                    <div style="margin-left:-30px;border:1px solid black;background:#e6faff;border-radius:10px;height:230px;width:270px;">
+                        <img src="/static/images/1.png" alt="why choose sequal" srcset="" style="height:130px;width:130px;margin-left:50px;margin-top:20px;">
+                        <p style="margin-left:70px ; margin-top:10px;font-weight:bold;">1.8 Lakhs+ Diet <br> Consultations </p>
+                    </div>
+                    <div style="margin-left:20px;border:1px solid black;background:#e6faff;border-radius:10px;height:230px;width:270px;">
+                        <img src="/static/images/2.png" alt="why choose sequal" srcset="" style="height:130px;width:130px;margin-left:50px;margin-top:20px;">
+                        <p style="margin-left:70px ; margin-top:10px;font-weight:bold;"> Most Trusted Labs</p>
+                    </div>
+                    <div style="margin-left:20px;border:1px solid black;background:#e6faff;border-radius:10px;height:230px;width:270px;">
+                        <img src="/static/images/3.png" alt="why choose sequal" srcset="" style="height:130px;width:130px;margin-left:50px;margin-top:20px;">
+                        <p style="margin-left:70px ; margin-top:10px;font-weight:bold;">3 Lakhs+ Doctor <br> Consultation </p>
+                    </div>
+                    <div style="margin-left:20px;border:1px solid black;background:#e6faff;border-radius:10px;height:230px;width:270px;">
+                        <img src="/static/images/4.png" alt="why choose sequal" srcset="" style="height:130px;width:130px;margin-left:50px;margin-top:20px;">
+                        <p style="margin-left:70px ; margin-top:10px;font-weight:bold;"> On Time Report </p>
+                    </div>
+                    {% comment %} <div class="shadow">
+                        <img src="/static/images/why choose sequel5.jpg" alt="why choose sequal" srcset="">
+                    </div>
+                    <div class="shadow">
+                        <img src="/static/images/why choose sequel6.jpg" alt="why choose sequal" srcset="">
+                    </div> {% endcomment %}
+                </div>
+            </div>
+           
+
+        </div> 
+       
+    </div>
+
+    <div class="heading text-center">
+        <h3 style="color: black;margin-top:80px;">The Excellence of <br><span style="color: #0088cc;">Sequal diagnosis Labs</span>
+        </h3>
+        <hr class="line" style="width:200px;margin-left:730px;border:1px solid black;">
+    </div>
+    <div class="labs px-lg-5 px-1 my-5" style="background:#e6faff; padding: 40px 0;">
+        <div class="container">
+            
+            <div class="row text-light py-5">
+                <div class="col-5">
+                    <img src=" {% static 'images/p0-about-thumb-story.webp' %} " alt="" class="img-fluid">
+                </div>
+                <div class="col-lg-7">
+                    <p style="color:black;">
+                        Sequal diagnosis is one of the most trusted players in diagnostics today, with a network of fully
+                        automated labs across major cities in India, that are hardcoded with innovative technology,
+                        advanced robotics and intelligent digital solutions.
+                    </p>
+                    <p style="color:black;">
+                        With an extensive team of highly qualified lab technicians and pathologists, our
+                        single-minded
+                        purpose is to follow the strictest of quality measures to maintain accuracy for each test we
+                        perform.
+                    </p>
+                    <a href=" {% static '' %} "
+                        style=" border-radius:5px;height:40px;  background-color: #4fb1db;padding: 5px 20px;color: #fff;float: left; margin-bottom: 35px;"
+                        class="orange-btn">View More</a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="customer-speaks container">
+        <div class="heading text-center my-4">
+            <h3 style="color:black;">Testimonial</h3>
+            <hr class="line" style="width:200px;margin-left:450px;border:1px solid black;">
+        </div>
+        <div class="row my-3 slides-2">
+            <div class="col-lg-12 " style="margin-top:80px;">
+                <div class="g_playreview rounded shadow" style="background:#c3cacb;width:350px;height:200px;margin-top:-10px;">
+                   
+                    
+                    <p>Very satisfied with the sample collection procedure. Representative was quite professional
+                        and
+                        skillful.</p>
+                        <div class="stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+
+                </div>
+                <img src="/static/images/z.png" style="border-radius:80px;height:60px;width:60px;margin-left:150px;margin-top:-20px;">
+                <h6 style="color: #f27d27;margin-left:150px;color:black">Dhiruji</h6>
+            </div>
+            <div class="col-lg-12 ">
+                <div class="g_playreview rounded shadow" style="transform:scale(1.1);background:#4da6ff;width:350px;height:200px;color:white;">
+                    
+                   
+                    <p>Very satisfied with the sample collection procedure. Representative was quite professional
+                        and
+                        skillful.</p>
+                        <div class="stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                </div>
+                <img src="/static/images/z.png" style="border-radius:80px;height:60px;width:60px;margin-left:150px;margin-top:10px;">
+                <h6 style="color: #f27d27;margin-left:150px;color:black">Revindra</h6>
+            </div>
+            <div class="col-lg-12 " style="margin-top:120px;">
+                <div class="g_playreview rounded shadow" style="background:#c3cacb;width:350px;height:200px;margin-left:-10px;margin-top:-40px;">
+                   
+                   
+                    <p>Very satisfied with the sample collection procedure. Representative was quite professional
+                        and
+                        skillful.</p>
+                        <div class="stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                </div>
+                <img src="/static/images/z.png" style="border-radius:80px;height:60px;width:60px;margin-left:150px;margin-top:-20px;">
+                <h6 style="color: #f27d27;margin-left:150px;color:black">Mukesh</h6>
+            </div>
+        </div>
+    </div>
+
+   
+</div>
+    {% endblock %}
+
+    {% block basicscript %}
+    <script>
+        offset = 0;
+        setInterval(() => {
+            offset = offset + 0.2;
+            document.querySelector(".slides").scrollTo(offset, 0);
+        }, 10);
+        AOS.init();
+        $(document).ready(function () {
+            $('.toggler').click(function () {
+                $(this).siblings().removeClass("active");
+                $(this).toggleClass("active");
+    
+            })
+    
+        });
+    </script>
+     <script>
+        $(document).ready(() => {
+    $('.slides-2').slick({
+        centerMode: true,
+        centerPadding: '60px',
+        slidesToShow: 3,
+        autoplay: true,
+        arrows:false    ,
+        autoplaySpeed: 1000,
+        responsive: [
+          {
+            breakpoint: 768,
+            settings: {
+              arrows: false,
+              centerMode: true,
+              centerPadding: '40px',
+              slidesToShow: 2
+            }
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              arrows: false,
+              centerMode: true,
+              centerPadding: '40px',
+              slidesToShow: 1
+            }
+          }
+        ]
+      })
+});
+    </script>
+    {% endblock %}

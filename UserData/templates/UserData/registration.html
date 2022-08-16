@@ -1,0 +1,106 @@
+{% comment %} {% extends 'basic.html' %} {% endcomment %}
+{% load static %}
+{% block body %}
+<style>
+
+    .a{
+     
+        height:690px;
+        width:670px;
+        background:#ccddff;
+        margin-top:-32px;
+        margin-left:-10px;
+    }
+
+
+    .z{
+     
+        height:690px;
+        width:680px;
+        background: #e6eeff;
+        margin-top:-32px;
+        margin-left:-15px;
+    }
+    .d{
+        margin-left:60px;
+        margin-top:30px;
+        color:#0066cc;
+    }
+
+    .e{
+        margin-left:60px;
+    }
+    .gh{
+        margin-left:60px; 
+        margin-top:20px; 
+        background:#4fb1db;
+        border:none;
+        width:120px;
+        height:40px;
+        color:white;
+        border-radius:5px ;
+    }
+
+   
+   
+</style>
+     <div class="">
+         {% comment %} <h1 class="text-center title">Welcome to SEQUEL!</h1> {% endcomment %}
+         <div >
+             <div class="row">
+                 <div class="col-lg-6" style="float:left;">
+                    <div class="a">
+                        <img src="/static/images/log.png" style="height:450px;width:450px;margin-left:70px;margin-top:130px;"> 
+                    </div>
+                 </div>
+                 <div class="col-lg-6" style="float:left;">
+                     <div class="z">
+                        <img src="/static/images/logo.png" style="height:50px;width:120px;margin-top:50px;margin-left:60px;">
+                        <h3 class="d">Welcome to SEQUEL!</h3>
+                     <h3 class="e">Fill The Details</h3> 
+                     <form action="{% url "registration" %}" method="post">
+                         <div class="col-12" >
+                             {% csrf_token %}
+                             <label style="margin-left:60px;"> Full Name</label><br>
+                             <input style="margin-left:60px;height:40px;width:400px;border-radius:5px;border:1px solid #4fb1db"  type="text" name="name" placeholder="Enter your Full Name here" id="nameinput" oninvalid="this.setCustomValidity('Please Enter valid name')" required>
+                             <div class="text-danger" id="nameerror"></div><br>
+                             <label style="margin-left:60px;">Email Id</label> <br>
+                             <input style="margin-left:60px;height:40px;width:400px;border-radius:5px;border:1px solid #4fb1db" type="email" name="email" oninvalid="this.setCustomValidity('This mail is invalid')" placeholder="Enter your Email address here" id="" required>
+                             <br><br>
+                             <label style="margin-left:60px;">Gender</label> 
+                             <input type="checkbox" name="gender"  value="male" checked required> <label for="mail" >Male</label> <input type="radio" name="gender" id="female" value="female" required> <label for="female">Female</label> <br><br>
+                             <label style="margin-left:60px;">Date of Birth</label><br>
+                             <input style="margin-left:60px;height:40px;width:400px;border-radius:5px;border:1px solid #4fb1db" type="date" name="dob" id="dob"  required>
+                             <br><br>
+                             <input style="margin-left:60px;" type ="checkbox" class="proceed mt-5 "> I accept all the <span
+                                    class="text-info">Terms and Conditions</span> &amp; <span class="text-info">Privacy
+                                    Policy</span>
+                                    <br><br>
+                             <input class="gh" type="submit" value="Register">
+                         </div>
+                         <img src="/static/images/l.png" style="height:170px;width:170px;margin-left:500px;margin-top:-60px;">
+                     </form>
+                    </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+ 
+     <br><br>
+     <script>
+     </script>
+ {% endblock     %}
+ {% block basicscript %}
+ <script>
+     $(document).ready(function () {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
+
+            today = yyyy-5 + '-' + mm + '-' + dd;
+            $('#dob').attr('max',today);
+
+        });
+ </script>
+ {% endblock %}

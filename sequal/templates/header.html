@@ -1,0 +1,166 @@
+{% load static %}
+{% load loadheader %}
+{% with ''|getContact as contactdata %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alef">
+
+<style>
+   *:not(i){
+       font-family: Alef!important;
+   }
+   .dropdown-menu{
+       background: white;
+    }
+    
+    header .navbar nav .top ul li i {
+        color:white;
+       
+    }
+    header .navbar ul li.sub-menu a::after {
+        content: none!important;
+        
+    }
+     ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  /* overflow: hidden; */
+ 
+}
+
+li {
+  float: left;
+
+}
+
+li a, .dropbtn {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 8px 10px;
+  text-decoration: none;
+  
+}
+
+li a:hover, .sub-menu:hover .dropbtn {
+  /* background-color: #0088cc; */
+}
+
+li.sub-menu {
+  display: inline-block;
+}
+
+.sub-menu .drop-down {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px ;
+  z-index: 1;
+}
+
+.sub-menu .drop-down a {
+  /* color: black; */
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+} 
+
+/* .sub-menu .drop-down a:hover {background-color: #f1f1f1;} */
+
+.sub-menu:hover .sub-menu .drop-down {
+  display: block;
+} 
+/* header .drop-down li {
+    line-height: normal;
+}
+header .navbar nav .bottom ul li {
+    padding: 8px 8px;
+}
+li {
+    text-align: -webkit-match-parent;
+} */
+</style>
+        <header  >
+            <div class="navbar" style="background: #0088cc;height:100px;margin-top:-8px;">
+                <div class="logo"><a href="{% url 'index' %}"><img src="/static/images/logo.png " alt="" class="logo"></a></div>
+                <nav>
+                    <div class="top">
+                        <ul>
+                            {% if user.is_authenticated %}
+                            <li class="dropdown dropdown-toggle"><a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;font-size: 14px;">Welcome {{request.user.first_name|title}} <i class="fa fa-user"></i></a>
+                                <div class="dropdown-menu"aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="{% url "userdashboard" %}" style="color:darkblue;">Dashboard</a>
+                                    <a class="dropdown-item" href="{% url "profile" %}" style="color:darkblue;">Profile</a>
+                                    <a class="dropdown-item" href="{% url "booking" %}" style="color:darkblue;">My Bookings</a>
+                                    <a class="dropdown-item" href="{% url "report" %}" style="color:darkblue;">My Reports</a>
+                                    <a class="dropdown-item" href="{% url "family" %}" style="color:darkblue;">My Family &amp; Friends</a>
+                                    <a class="dropdown-item" href="{% url "address" %}" style="color:darkblue;">Manage Addresses</a>
+                                    <a class="dropdown-item" href="{% url "logoutuser" %}" style="color:darkblue;">Sign-Out</a>
+                                </div>
+                            </li>
+                            
+                            {% else %}
+                            <li><a href=" {% url 'userlogin' %} "style="color: white;font-size:14px;">Login/Sign up <i class="fa fa-user" style="color: white!important;"></i></a></li>
+                            {% endif %}
+                            <li><a href="tel:{{contactdata.0.helpline}}"style="color: white;font-size:14px;">Help line:{{contactdata.0.helpline}}</a> <i class="fa fa-phone" style="color: white";></i></li>
+
+                        </ul>
+                    </div>
+                    <div class="bottom">
+                        <ul>
+                            <li class="sub-menu" ><a href="#" class="dropbtn" style="color: white;">Popular Packages</a>
+                                <ul class="drop-down" style="background: white;width: 250px;height: 150px;;" >
+                                    <!-- <div class="row"> -->
+                                        {% for range in ""|popularpackage|getrange %}
+                                        <div class="col-lg-6 col-12">
+                                           
+                                            {% for  mdata in ""|popularpackage|slice:range %}
+                                            <li ><a href="{% url 'packagedetails' mdata.slug %}" style="color:darkblue;padding:.005px;white-space: nowrap;font-size:14px;" >{{mdata.Package_name}}</a></li>
+                                            {% endfor %}
+                                        </div>
+                                        {% endfor %}
+                                    <!-- </div> -->
+                                </ul>
+                            </li>
+                            {% for data in ""|getcategory %}
+                            <li class="sub-menu"><a href="#" class="dropbtn" style="color: white;">{{data.name}}</a>
+                                <ul class="drop-down" style="width: 250px;height: 250px;" >
+                                    <!-- <div class="row"> -->
+                                        {% for range in data.subcategory.all|getrange %}
+                                        <div class="col-lg-6 col-12">
+                                            {% for  mdata in data.subcategory.all|slice:range %}
+                                            <li><a href="{% url 'getbysubcategory' mdata.slug %}" style="color:darkblue;padding:.005px;white-space: nowrap;font-size: 14px;">{{mdata.name}}</a></li>
+                                            {% endfor %}
+                                        </div>
+                                        {% endfor %}
+                                    <!-- </div> -->
+                                </ul>
+                            </li>
+                            {% endfor %}
+                           
+                            <!-- <li><a href=" # ">Faqs</a></li> -->
+                            <li><a href="{% url 'contact' %}"style="color: white;">Contact Us</a></li>
+                            <li style="margin-right: 0;"><a href=" # "><button style="background:white;color:black;" onclick="window.location='{% url "uploadprescription" %}'" class="ml-2"><i
+                                style="background:black;" class="text-light fa fa-upload" ></i>Upload Prescription</button></a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="toggle-btn text-light">
+                    <i class="fa fa-bars"></i>
+                </div>
+            </div>
+        </header>
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}} alert-dismissible fade show in" role="alert">
+            {{message|safe}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endfor %}
+    {% endwith %}
+
+    

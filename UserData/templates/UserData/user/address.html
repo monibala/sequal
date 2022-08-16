@@ -1,0 +1,295 @@
+{% extends 'UserData/user/userbasic.html' %}
+{% block user %}
+<!-- Button trigger modal -->
+<div style="margin-left:-30px;">
+
+    <div class="Family-headingdiv text-left" style="background:#cce6ff;">
+        <h3 style="color:#0066cc;font-weight:bold">Manage Addresses</h3>
+       
+    </div>
+    <div class="Retake-Healthkarmadiv f-div" style="margin: 0;background:#cce6ff;height:550px;">
+        <!--  <div class="Add-New-Member text-center"></div> -->
+       
+            {% if address %}
+            {% for data in address %}
+            <div class="add-box" id="address_{{data.id}}">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="address"> <strong>House No. / Flat : </strong> <span>{{data.houseno}}</span> </div>
+                        <div class="address"> <strong>Address : </strong> <span>{{data.city}}, {{data.state}}, India</span>
+                        </div>
+                        <div class="address"> <strong>Pincode : </strong> <span>{{data.pin}}</span> </div>
+                    </div>
+                    <div class="col-sm-4 text-center btnrdiv">
+                        <div class="edit-address"> <a class="delico" href="{% url 'deleteaddress' data.id %}"> <img
+                                    src="/static/images/del-icon.png"> </a>
+                                     <!-- <a class="editico"
+                                onclick="editAddress(this);" data-toggle="modal" data-target="#family_edit"> <img
+                                    src="/static/images/edit-icon.png"> </a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <img src="/static/images/pana.png" style="height:300px;width:300px;margin-left:320px;">
+            <h4 style="font-size:25px;color:#0066cc;margin-top:30px;margin-left:370px;font-weight:bold">No Address Found..!!</h4>
+            {% endif %}
+            <span class="addmemberright">
+            <a class="btn btn-primary" data-toggle="modal"
+            data-target="#family_edit" onclick="addAddress();" >Add New Address</a>
+            </span>
+           
+        </div>
+        <div class="alert alert-danger" id="address_list_error_div" style="display:none;"></div>
+        <div id="address_list_div">
+
+        <div class="modal fade addfamilymember in" id="family_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background:#4fb1db;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="clearfix"></div>
+                    <form class="" id="add_family_form" name="add_family_form" method="post">
+                        <div class="modal-body">
+                            <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 select-member-option">
+
+                                <div class="col-sm-12 text-center commonpopup_title">
+                                    <h2 id="add_edit_title" >Add New Address</h2>
+                                    <!-- <img class="lazy-loaded" data-src="/img/underline.png" alt="underline" src="/static/images/underline.png"> -->
+                                </div>
+                                
+                                <div class="clearfix"></div>                       
+                                
+                                {% csrf_token %}
+                                <div class="text-success my-2" id="infomessage"></div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 normal-input">
+                                    <label>Select Country</label>
+                                    <!-- <input  id="country" name='country' placeholder="Enter your City, State" tabindex="3" type="text"  >
+                                    <option value="" selected="selected">Select Country</option> -->
+                                    <!-- <label>Select Country:</label> -->
+                                    <select name="country" id="countyList" style="
+                                    width: 100%;
+                                    border: 0px;
+                                    border-bottom: 1px solid rgb(113, 113, 113);
+                                    font-size: 14px;
+                                    padding-bottom: 11px;
+                                    border-radius: 0.25rem;" tabindex="-1" class="select2" aria-hidden="true">
+                                        <option value="" selected="selected"></option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 normal-input">
+                                    <label>Select State</label>
+                                   
+                                    <select name="state" id="stateList" style="
+                                    width: 100%;
+                                    border: 0px;
+                                    border-bottom: 1px solid rgb(113, 113, 113);
+                                    font-size: 14px;
+                                    padding-bottom: 11px;
+                                    border-radius: 0.25rem;" tabindex="-1" class="select2" aria-hidden="true">
+                                        <option value="" selected="selected"></option>
+                                    </select>
+                                    <!-- <input  id="state" name='state' placeholder="Enter your City, State" tabindex="3" type="text"  > -->
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 normal-input">
+                                    <label>Select City</label>
+                                    <select name="city" id="cityList" style="
+                                    width: 100%;
+                                    border: 0px;
+                                    border-bottom: 1px solid rgb(113, 113, 113);
+                                    font-size: 14px;
+                                    padding-bottom: 11px;
+                                    border-radius: 0.25rem;" tabindex="-1" class="select2" aria-hidden="true">
+                                        <option value="" selected="selected"></option>
+                                    </select>
+                                </div>
+                                <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 normal-input loc_autodiv">
+                                    <label class="loc_label">Colony / Area / Sector* 
+                                    </label>
+                                    <input type="hidden" name="id" id="addressid"> 
+                                    <select id="locality" name="city" class="mt-2" placeholder="Enter Locality" required="true" style="
+                                        width: 100%;
+                                        border: 0px;
+                                        border-bottom: 1px solid rgb(113, 113, 113);
+                                        font-size: 14px;
+                                        padding-bottom: 11px;
+                                        border-radius: 0.25rem;" tabindex="-1" class="select2" aria-hidden="true">
+                                     <option value="" selected="">Select Your City *</option>
+                                     <option value="Chennai">Chennai</option>
+                                     <option value="Hyderabad">Hyderabad</option>
+                                     <option value="Pune">Pune</option>
+                                     <option value="Bangalore">Bangalore</option>
+                                    </select>
+                                </div> -->
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 normal-input hno_autodiv">
+                                    <label>House No. / Flat / Building / Landing *</label>
+                                    <input autocomplete="off" id="house_number" name="houseno" maxlength="512" placeholder="" required="true" tabindex="1" type="text" >
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 normal-input">
+                                    <label>Pincode </label>
+                                    <div class="text-danger" id="errormsg" ></div>
+                                    <input autocomplete="off" id="pincode" maxlength="6" minlength="6" name="pin" placeholder="" tabindex="3" type="text"><br>
+                                    
+                                </div>
+                           
+                                <!-- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> -->
+                                    <div class="reminds">
+                                        <div class="checkbox checkbox-info checkbox-circle">
+                                            <input id="default_status" name="default" type="checkbox" value="default_status"> <label for="checkbox6">Make Default Address</label>
+                                            
+                                        </div>
+                                    </div>
+                                <!-- </div> -->
+                                
+                               <!-- <input type="hidden" id="statein" name="state" > -->
+                            </div>
+                            <div class="center-bnt addaddresssavechange">
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script src="/static/js/request.js"></script>
+    <script>  
+    // Add Address
+          var worldData = {
+                USA: {
+                    California: ["Los Angeles", "San Diego", "Sacramento"],
+                    Texas: ["Houston", "Austin"],
+                    Florida: ["Miami", "Orlando", "Tampa"],
+                },
+                India: {
+                    Maharashtra: ["Mumbai", "Pune", "Nagpur"],
+                    TamilNadu: ["Chennai", "Madurai", "Salem", "Trichy", "Namakkal", "Dindigul"],
+                    Karnataka: ["Bangalore", "Mangalore"],
+                    MadhyaPradesh: ["Indere", "Bhopal", "Jabalpur", "Ujjain"],
+                    Kerala: ["Thiruvanathapuram", "Kochi", "Kollam", "Thrissur"],
+                    Telangana: ["Hyderabad", "Mahbubnagar", "Warangal", "Adilabad"],
+                    UttarPradesh: ["Lucknow", "Kanpur", "Meerut"],
+                    WestBengal: ["Kolkatta", "Durgapur"],
+                },
+                Canada: {
+                    Alberta: ["Calgary", "Edmonton", "Red Deer"],
+                    BritishColumbia: ["Vancouver", "Kelowna"],
+                    Manitoba: ["Winnipeg", "Brandon"],
+                },
+                Germany: {
+                    Bavaria: ["Munich", "Nuremberg"],
+                    NorthRhine: ["Cologne", "Düsseldorf"],
+                },
+            };
+            // window.onload = function () {
+            function start() {
+                addAddress();
+                editAddress();
+            }
+            function addAddress() {
+                var countyList = document.getElementById("countyList"),
+                    stateList = document.getElementById("stateList"),
+                    cityList = document.getElementById("cityList");
+                for (var country in worldData) {
+                    countyList.options[countyList.options.length] = new Option(country, country);
+                }
+                countyList.onchange = function () {
+                    stateList.length = 1;
+                    cityList.length = 1;
+                    if (this.selectedIndex < 1) return;
+                    for (var state in worldData[this.value]) {
+                        stateList.options[stateList.options.length] = new Option(state, state);
+                    }
+                };
+                countyList.onchange();
+                stateList.onchange = function () {
+                    cityList.length = 1;
+                    if (this.selectedIndex < 1) return;
+                    var city = worldData[countyList.value][this.value];
+                    for (var i = 0; i < city.length; i++) {
+                        cityList.options[cityList.options.length] = new Option(city[i], city[i]);
+                    }
+                };
+            };
+
+//          function editAddress(this){
+            
+//             const formDetails = document.getElementById("add_family_form");
+//             formDetails.addEventListener("editAddress", async (ev) => {
+//             ev.preventDefault();
+//             var country = document.getElementById("countyList").value;
+            
+//             var state = document.getElementById("stateList").value;
+            
+//             console.log(country);
+//             console.log();
+//    })
+             
+//  };
+ window.onload = start;
+            // let editAddress = e => {
+            //     let addressid = e.parentElement.parentElement;
+            //     cityList.value = addressid.children[0].innerHtml;
+            //     houseno.value = addressid.children[1].innerHtml;
+            //     delete(e);
+            // }
+
+        // pinselect = $("#pincode")
+        // pinselect.focusin(function(){
+        //      $("#errormsg").html('')
+        //  })
+        //  $("#locality").on('click',function(){
+        //      $("#infomessage").html("Enter the Pincode we will populate this field for you")
+        //      setTimeout(() => {
+        //          $("#infomessage").html("")
+        //      }, 5000);
+        //  })
+     
+        //  pinselect.focusout( async function(){
+        //      url = "https://api.cyberflax.tk/"
+        //     //  url ="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0ZptnVJHn2W10uerGZ_ya3bHdACuG_3k&callback=initMap"
+        //      locationsurl = `${url}api/locations/`
+        //      data = await makerequest(locationsurl,`?pincode=${this.value}&pagesize=1&data=id,city__name,city__state__name`,pinselect,response=true)
+        //      if(data.length ==0){
+        //          $("#errormsg").html('invalid pincode')
+        //      }
+        //      $("#locality").html(`<option value='${data[0].city__name}' >${data[0].city__name}, ${data[0].city__state__name}</option>`)
+        //      $("#locality").val(data[0].city__name)
+        //      $("#city_state").val(`${data[0].city__name}, ${data[0].city__state__name}`)
+        //      $("#statein").val(data[0].city__state__name)
+        //  })
+        //  function addAddress(){
+        //      $("#add_edit_title").text("Add New Address");
+        //      $("#locality").html(``)
+        //      $('#add_family_form')[0].reset();   
+        //  }
+         
+        //  function editAddress(addressid) {
+        //      getFamily_api_url = "{% url "getaddress" %}?addressid="+addressid
+        //      $("#add_edit_title").text("Edit address");
+        //      $('#add_family_form')[0].reset();
+     
+        //      $("#addressid").val("");
+        //      $("#addressid").val(addressid);
+     
+        //      ajaxCallPromise(getFamily_api_url, "GET", null).then((data)=>{
+        //          console.log(data);
+        //      $("#locality").html(`<option value='${data.city}'>${data.city}</option>`);
+        //      $("#house_number").val(data.houseno);
+        //      $("#pincode").val(data.pin);
+        //      $("#default_status").prop('checked',data.default);
+        //      $("#city_state").val(data.state);
+        //      $("statein").prop(data.state);
+                 
+        //      });
+        //  }
+    </script>
+{% endblock %}
+<!------aside-end -->

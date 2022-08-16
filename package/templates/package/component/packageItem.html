@@ -1,0 +1,24 @@
+
+
+<div class="" style="padding: 0;margin-top: 30px;">
+    
+    <div class="card mx-2" >
+        <div style="height: 350px;background:#e6faff;width:300px;" class="check-up-card">
+            <span class="discount" style="border: 1px solid #4fb1db!important;background: #4fb1db!important;font-size:16px;">{{data.discount}}{% if '%' not in data.discount %}₹{% endif %} off</span>
+            <h4 style="color:black">{{data.Package_name}}</h4>
+            <h4 style="color:black"> Includes : {{data.Porfile_collection.count}} Parameter </h4>
+            <ul style="color:black">
+                {% for profile in data.Porfile_collection.all|slice:":3" %}
+                <li>{{profile.Profile_Name}} </li>
+                {% endfor %}
+            </ul>
+            <br>
+            <b>
+                <h3 style="color:black;margin-left: 10px;" ><del>₹{{data.Package_price}}</del>
+                ₹{{data.final_cost}}
+                <a href="{% url 'packagedetails' data.slug %}" style="background: #4fb1db!important; border: 1px solid #4fb1db!important;margin: 0px 0px 0px 150px!important;">+ Know More</a><br>
+            </h3>
+            </b>
+        </div>
+    </div>
+</div>

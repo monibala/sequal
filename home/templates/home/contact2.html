@@ -1,0 +1,142 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block body %}
+
+
+
+
+
+
+{% comment %} 
+<div class=" m-4">
+    <div class="container">
+       <div class="row">
+          <div class="col-sm-6">
+             <h2>Contact Us</h2>
+          </div>
+          <div class="col-sm-6">
+             <ul class="breadcrumb breadcrumb-lst">
+                <li><a href="/" >Home</a></li>
+                <li class="active">/Contact</li>
+             </ul>
+          </div>
+       </div>
+    </div>
+ </div>
+ <div class="Contact-slide">
+    <!--
+       User Profile Sidebar by @keenthemes
+       A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
+       Licensed under MIT
+       -->
+    <div class="container">
+       <div class="row">
+         <div class="col-lg-12" >
+             <img src="/static/images/contact_us_banner_new.jpg" style="width:100%;" height="235px;" >
+             
+ 
+          </div>
+          <div style="clear:both;margin-bottom:1em;"></div>
+          <div class="col-lg-4">
+             <div class="col-lft">
+                <i class="fa fa-home"></i>
+             </div>
+             <div class="col-ryt">
+                <address>
+                   <big><strong>MEET US AT</strong></big><br>
+                   <small>
+
+                       {{contactinfo.0.address}}
+                   </small>
+                </address>
+             </div>
+          </div>
+          <div class="col-lg-4">
+             <div class="col-lft">
+                <i class="fa fa-envelope"></i>
+             </div>
+             <div class="col-ryt">
+                <address>
+                <big><strong>SEND US EMAIL ON</strong></big><br>
+                   <a href="mailto:{{contactinfo.0.email}}">{{contactinfo.0.email}}</a>
+                </address>
+             </div>
+          </div>
+          <div class="col-lg-4">
+             <div class="col-lft">
+                <i class="fa fa-phone"></i>
+             </div>
+             <div class="col-ryt">
+                <address>
+                   <big><strong>WE ARE ON 24/7</strong></big><br>
+                   <abbr title="Phone"></abbr><a href="tel:{{contactinfo.0.phone}}">{{contactinfo.0.phone}}</a> 
+                </address>
+             </div>
+          </div>
+       </div>
+    </div>
+    <br>
+ </div> {% endcomment %}
+ 
+ <div class='row'>
+ 
+   <div class="contact-form col-md-6" >
+      <div class="container" >
+         <div class="row" >
+            <div class="col-md-12" >
+               <h3 style="font-size:25px;font-weight: bold;padding-top:35px;margin-left:20px">Get In Touch With Us</h3>
+               <div class="alert-success" style="margin-bottom:1em"></div>
+               <form method="post" name="contact">
+                   {% csrf_token %}
+                  <div class="row " >
+                     <div class="col-md-12">
+                        <div class="form-group">
+                          <!-- <label for="name" style="font-size:10px;">Name</label> -->
+                        <input style="width:400px;background:#cce6ff;color:black;border:1px solid black;border:inherit;padding:50px 15px 15px 10px;" type="text" required="required" placeholder="Name" id="name" name="name" class="form-control">
+                                             </div>
+                        <div class="form-group">
+                           <!-- <label for="email" style="font-size:10px;">Email Address</label> -->
+                           <!-- <div style="width:400px;background:#cce6ff;color:black;border:1px solid black;border:inherit;" class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span> -->
+                           <input style= "width:400px;background:#cce6ff;color:black;border:1px solid black;border:inherit;padding:50px 15px 15px 10px;" type="email"   placeholder="Email" id="email_id" name="email" class="form-control" required="required">
+                                                   </div>
+                        <!-- </div> -->
+                        <div class="form-group">
+                           <!-- <label for="subject" style="font-size:10px;">Contact Number</label>  -->
+                           <input style="width:400px;background:#cce6ff;color:black;border:1px solid black;border:inherit;padding:50px 15px 15px 10px;" type="text"  placeholder="Phone no" id="mobile_no" name="mobile" class="form-control" required="required">
+                                                </div>
+                     </div>
+                     <div class="col-md-6">
+                       <div class="form-group">
+                           <!-- <label for="subject" style="font-size:10px;">subject</label>  -->
+                           <input  style="width:400px;background:#cce6ff;color:black;border:1px solid black;border:inherit;padding:50px 15px 15px 10px;" type="text"  placeholder="Subject" id="subject" name="subject" class="form-control" required="required">
+                           
+                        </div>
+                        <div class="form-group">
+                          <!-- <label for="Message" style="font-size:10px;">Message</label>  -->
+                          <input  style="width:400px;background:#cce6ff;color:black;border:1px solid black;border:inherit;padding:50px 15px 15px 10px;" type="text"  placeholder="Message" id="subject" name="message" class="form-control" required="required">
+                          
+                       </div>
+                        <!-- <div  style="width:400px;background:#cce6ff;color:black;border:inherit;" class="form-group"><label style="font-size:10px;" for="name">Message</label> <textarea style= "background:#cce6ff;color:black;border:1px solid black;" cols="25" rows="4" style="height: 121px;" class="form-control" id="message" name="message" placeholder="Message" required="required"></textarea> -->
+                                             <!-- </div> -->
+                     </div>
+                     <div class="col-md-12">
+                       <button id=""  type="submit" style="margin-bottom:2px;margin-top:-30px;color:white;border-radius:5px;background:#0066cc;border:none;margin-left: 140px;height:30px;width:80px" >
+                        Send </button>
+                     </div>
+                     
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="mapp col-md-6" >
+      <iframe style="position:relative;height:500px;margin-left:-200px;width:800px" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d877.1097502464692!2d77.02225943584574!3d28.46306723336501!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1872fddc0e03%3A0xc1f4eeb29256cc48!2sSequel+Diagnostic+Services!5e0!3m2!1sen!2sin!4v1547321126634" width="100%" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>
+       
+      </div>
+
+</div>
+
+
+{% endblock %}

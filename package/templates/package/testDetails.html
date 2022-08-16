@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load custumfilter %}
+{% with ''|getAbout as aboutdata %}
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequel | {{pagetitle}}</title>
+    <link href=" {% static 'css/main.css' %} " rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        .modal-header .close {
+            position: absolute;
+            right: 3px;
+            top: 7px;
+            background: red;
+            border-radius: 50%;
+            padding: 5px 9px 8px !important;
+            opacity: 1;
+            color: #fff;
+        }
+
+        .modal-header {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: start;
+            align-items: flex-start;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            padding: 1rem 1rem;
+            border-bottom: none;
+        }
+
+        .plastic_select,
+        input[type=email],
+        input[type=number],
+        input[type=password],
+        input[type=tel],
+        input[type=text],
+        input[type=url],
+        select,
+        textarea {
+            font-size: 1.25rem;
+            line-height: normal;
+            padding: .75rem;
+            border: 1px solid #c5c5c5;
+            border-radius: .25rem;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            outline: 0;
+            color: #555459;
+            width: 100%;
+            max-width: 100%;
+            margin: 0 0 .5rem;
+            -webkit-transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
+            -moz-transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
+            transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            box-shadow: none;
+            height: auto;
+        }
+
+        .field-form input.mob-icon {
+            background: url(/static/images/mob-icon.png) no-repeat 17px 14px !important;
+        }
+
+        .field-form input.user-icon {
+            background: url(/static/images/user-icon.png) no-repeat 17px 14px !important;
+        }
+
+        .field-form input {
+            display: block;
+            width: 100%;
+            height: 45px;
+            font-size: 16px !important;
+            padding: 10px 12px 10px 45px;
+            color: #ccc;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            margin-bottom: 10px !important;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #dcdcdc;
+            border-radius: 2px;
+            -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        }
+
+        .field-button input {
+            font-size: 20px;
+            background: #ee5152;
+            background-image: -webkit-linear-gradient(top, #f26061, #d74142);
+            background-image: -moz-linear-gradient(top, #f26061, #d74142);
+            background-image: -ms-linear-gradient(top, #f26061, #d74142);
+            background-image: -o-linear-gradient(top, #f26061, #d74142);
+            background-image: linear-gradient(to bottom, #f26061, #d74142);
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            color: #fff;
+            border: none;
+            border-bottom: none;
+            width: 100%;
+            box-shadow: none !important;
+            padding: 8px 20px 8px 20px;
+            font-size: 20px;
+            margin: 15px 0 15px 0;
+        }
+
+        .genderOptions .genderopt ul {
+            list-style: none;
+            margin-bottom: 12px;
+            margin-left: 10px;
+            padding: 0;
+            display: flex;
+
+        }
+
+        .genderOptions .genderopt ul li {
+            display: block;
+            position: relative;
+            padding-right: 30px;
+            float: left;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="pregnancy-test-page">
+        {% include 'header.html' with aboutdata=aboutdata %}
+        <br><br>
+        <div class="container" >
+            <div class="title" style="background: #4fb1db;">
+                <div class="left">
+                    <h2>{{package.test_name}}</h2>
+                    <p>Perameter Included: <b>{{totaltest}}</b></p><br>
+                </div>
+                <div class="right ">
+                    <h4 style="opacity: 80%;">Sequal Price: &#8377;{{package.test_price}}</h4>
+                    <h4>Limited Time offer: &#8377;{{package.final_cost}}</h4>
+                    <!-- package rating -->
+                    <!-- <div class="package_rating">
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="text-dark">4.8/5</span>
+                    </div> -->
+                    <!-- package rating -->
+
+
+                </div>
+            </div>
+            <div>
+
+                <div class="row mt-5">
+                    <div class="col-lg-9 col-12 text-left" style="float: left;">
+                        {{package.test_description|safe}}
+                        <br>
+                    </div>
+                    <div class="col-lg-3 col-12 no-display">
+                        <div class="row">
+                            <div class="row card-1 col-lg-12 col-6  p-1" style="margin-left:-14px;">
+                                <div class="col-lg-3 col-6 p-0 m-0">
+                                    <img src=" {% static 'images/safety-assured.jpg' %} "
+                                        style="width: 100%; height: 100%;" alt="">
+                                </div>
+                                <div class="col-lg-9 col-6" style="border-left: 1px solid black;">
+                                    <a href="#" style="font-size: 14px;">Covid Safety</a>
+                                    <p style="font-size: 13px;">Assured</p>
+                                </div>
+                            </div>
+                            <div class="row card-2 col-lg-12 col-6  p-1">
+                                <div class="col-lg-3 col-6 p-0 m-0">
+                                    <img src=" {% static 'images/smart-report-icon.jpg' %} "
+                                        style="width: 100%; height: 100%;" alt="">
+                                </div>
+                                <div class="col-lg-9 col-6" style="border-left: 1px solid black;">
+                                    <a href="#" style="font-size: 14px;">View Smart</a>
+                                    <p style="font-size: 13px;">Smart Report</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row third" style="background: #f2f2f2;">
+                <div class="col-lg-3 col-6 perameter">
+                    <img src=" {% static 'images/lv_icon1.png' %} " class="float-left p-2" alt="">Parameter Included:
+                    <b> {{totaltest}}</b></p>
+                </div>
+                <div class="col-lg-3 col-6 perameter">
+                    <img src=" {% static 'images/lv_icon2.png' %} " class="float-left p-2" alt=""><b>FREE &nbsp;</b>
+                    Sample
+                    Collection</p>
+                </div>
+                <div class="col-lg-3 col-6 perameter">
+                    <img src=" {% static 'images/lv_icon3.png' %} " class="float-left p-2" alt=""> <b>FREE
+                        &nbsp;</b>Doctor
+                    Consultation
+                    </p>
+                </div>
+                <div class="col-lg-3 col-6 perameter">
+                    <img src=" {% static 'images/lv_icon4.png' %} " class="float-left p-2" alt=""> Test booked so far:
+                    <b>&nbsp;240+</b></p>
+                </div>
+            </div>
+            <div class="fourth">
+                <div class="child" style="background: #4fb1db;">
+
+                    <div class="row" >
+                        <div class="col-lg-3 col-6">
+                            <p>Report Time: <br><b> 24 Hours</b></p>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <p>Fasting Time: <br> <b>10 Hours</b></p>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <p>Test Recommended for: <br>
+                                <b>{% for data in package.Package_for.all %}{{data}} ,{% endfor %}</b></p>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <p> Recommended for age: <br> <b>5-99 Years</b></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <center>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">×</button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{% url "callback" %}?next={{request.path}}" name="addLeadFormPopup" id="addLeadFormPopup" novalidate="">
+                                   {% csrf_token %}
+
+                                    <div class="genderOptions" id="callback_type_div">
+                                        <div class="genderopt">
+                                            <ul>
+                                                <li>
+                                                    <div class="radio_genoption">
+                                                        <input id="newBooking" name="type" type="radio"
+                                                            value="1">
+                                                        <label for="newBooking">New booking </label>
+                                                    </div>
+                                                </li>
+
+                                                <li><input id="customerSupport" name="type" type="radio"
+                                                        value="2">
+                                                    <label for="customerSupport">Customer support query </label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="field-form">
+                                        <input id="contact_noPopup" value="" class="mob-icon pl10" minlength="10"
+                                            maxlength="10" name="mobile" type="text"
+                                            placeholder="Enter Your Mobile No. *" required="" autocomplete="off"
+                                            autofocus="" onkeyup="leadMirror(this);">
+                                    </div>
+
+                                    <div class="field-form">
+                                        <input name="name" id="namePopup" type="text" value=""
+                                            class="user-icon pl10" placeholder="Enter Your Name *" required=""
+                                            autocomplete="off" autofocus="">
+                                    </div>
+
+                                    <div class="field-form">
+                                        <select class="form-select minimal" id="cityPopup" name="city"
+                                            required="true">
+                                            <option value="" selected="">Select Your City *</option>
+                                            <option value="Agra">Agra</option>
+                                            <option value="Ahmedabad">Ahmedabad</option>
+                                            <option value="Ajmer">Ajmer</option>
+                                            <option value="Aligarh">Aligarh</option>
+                                            <option value="Allahabad">Allahabad</option>
+                                            <option value="Alwar">Alwar</option>
+                                            <option value="Ambala">Ambala</option>
+                                            <option value="Amritsar">Amritsar</option>
+                                            <option value="Aurangabad">Aurangabad</option>
+                                            <option value="Bahadurgarh">Bahadurgarh</option>
+                                            <option value="Bareilly">Bareilly</option>
+                                            <option value="Bengaluru">Bengaluru</option>
+                                            <option value="Bharatpur">Bharatpur</option>
+                                            <option value="Bhavnagar">Bhavnagar</option>
+                                            <option value="Bhilai">Bhilai</option>
+                                            <option value="Bhiwandi">Bhiwandi</option>
+                                            <option value="Bhopal">Bhopal</option>
+                                            <option value="Bhubaneswar">Bhubaneswar</option>
+                                            <option value="Bikaner">Bikaner</option>
+                                            <option value="Bilaspur">Bilaspur</option>
+                                            <option value="Bokaro">Bokaro</option>
+                                            <option value="Bulandshahar">Bulandshahar</option>
+                                            <option value="Chandigarh">Chandigarh</option>
+                                            <option value="Chennai">Chennai</option>
+                                            <option value="Cuttack">Cuttack</option>
+                                            <option value="Dehradun">Dehradun</option>
+                                            <option value="Delhi">Delhi</option>
+                                            <option value="Dewas">Dewas</option>
+                                            <option value="Dhanbad">Dhanbad</option>
+                                            <option value="Dhariwal">Dhariwal</option>
+                                            <option value="Faizabad">Faizabad</option>
+                                            <option value="Faridabad">Faridabad</option>
+                                            <option value="Gandhinagar">Gandhinagar</option>
+                                            <option value="Ghaziabad">Ghaziabad</option>
+                                            <option value="Gorakhpur">Gorakhpur</option>
+                                            <option value="Greater">Greater Noida</option>
+                                            <option value="Gulbarga">Gulbarga</option>
+                                            <option value="Guntur">Guntur</option>
+                                              <option value="Gurgaon">Gurgaon</option>
+                                            <option value="Gwalior">Gwalior</option>
+                                            <option value="Haridwar">Haridwar</option>
+                                            <option value="Hissar">Hissar</option>
+                                            <option value="Hubli">Hubli</option>
+                                            <option value="Hyderabad">Hyderabad</option>
+                                            <option value="Indore">Indore</option>
+                                            <option value="Jabalpur">Jabalpur</option>
+                                            <option value="Jaipur">Jaipur</option>
+                                            <option value="Jalandhar">Jalandhar</option>
+                                            <option value="Jamshedpur">Jamshedpur</option>
+                                            <option value="Jaunpur">Jaunpur</option>
+                                            <option value="Jhansi">Jhansi</option>
+                                            <option value="Jodhpur">Jodhpur</option>
+                                            <option value="Kakinada">Kakinada</option>
+                                            <option value="Kanpur">Kanpur</option>
+                                            <option value="Karnal">Karnal</option>
+                                            <option value="Kolkata">Kolkata</option>
+                                            <option value="Kota">Kota</option>
+                                            <option value="Kurnool">Kurnool</option>
+                                            <option value="Kurukshetra">Kurukshetra</option>
+                                            <option value="Lucknow">Lucknow</option>
+                                            <option value="Ludhiana">Ludhiana</option>
+                                            <option value="Mathura">Mathura</option>
+                                            <option value="Meerut">Meerut</option>
+                                            <option value="Modinagar">Modinagar</option>
+                                            <option value="Mohali">Mohali</option>
+                                            <option value="Moradabad">Moradabad</option>
+                                            <option value="Mumbai">Mumbai</option>
+                                            <option value="Muradnagar">Muradnagar</option>
+                                            <option value="Muzaffarnagar">Muzaffarnagar</option>
+                                            <option value="Mysuru">Mysuru</option>
+                                            <option value="Nagpur">Nagpur</option>
+                                            <option value="Nashik">Nashik</option>
+                                            <option value="Noida">Noida</option>
+                                            <option value="Panchkula">Panchkula</option>
+                                            <option value="Panipat">Panipat</option>
+                                            <option value="Patiala">Patiala</option>
+                                            <option value="Patna">Patna</option>
+                                            <option value="Pune">Pune</option>
+                                            <option value="Raipur">Raipur</option>
+                                            <option value="Rajkot">Rajkot</option>
+                                            <option value="Ranchi">Ranchi</option>
+                                            <option value="Rishikesh">Rishikesh</option>
+                                            <option value="Rohtak">Rohtak</option>
+                                            <option value="Roorkee">Roorkee</option>
+                                            <option value="Saharanpur">Saharanpur</option>
+                                            <option value="Sonipat">Sonipat</option>
+                                            <option value="Surat">Surat</option>
+                                            <option value="Tirupati">Tirupati</option>
+                                            <option value="Udaipur">Udaipur</option>
+                                            <option value="Ujjain">Ujjain</option>
+                                            <option value="Vadodara">Vadodara</option>
+                                            <option value="Varanasi">Varanasi</option>
+                                            <option value="Vijaywada">Vijaywada</option>
+                                            <option value="Visakhapatnam">Visakhapatnam</option>
+                                            <option value="Warangal">Warangal</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="field-button">
+                                        <input type="submit"
+                                            value="Get Free Call Now" id="landing_desktop" style="background: #4fb1db;">
+                                    </div>
+                                    <span class="mand_field_text">* Mandatory fields</span>
+
+                                </form>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <a href="{% url 'booknow' package.slug 'test' %}"><button class="link-1">Book Now</button></a>
+                <button class="link-2" data-toggle="modal" data-target="#exampleModal" style="background: #4fb1db;border-color:#4fb1db!important;color:white;">Get A Call Back</button>
+            </center>
+            <br><br>
+        </div>
+
+        <div class="first container mt-5">
+            <div class="text col-lg-6 col-12">
+            </div>
+            {% if related %}
+            <h1 class="text-center m-lg-5 mb-5">Related Tests</h1>
+            <div class="slides" >
+                {% for data in related %}
+                {% include 'package/component/testitem.html' with data=data %}
+                {% endfor %}
+            </div>
+            {% endif %}
+            <center>
+                <br><br>
+                <a href=" {% static '' %} " class="services-btn m-4" style="background: #4fb1db; color:white; border:#4fb1db;">View All Services</a>
+                <br><br>
+            </center>
+        </div>
+
+        {% include 'footer.html' with aboutdata=aboutdata %}
+
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script src=" {% static 'js/index.js' %} "></script>
+
+    </div>
+</body>
+<script>
+    offset = 0;
+    setInterval(() => {
+        offset = offset + 0.2;
+        document.querySelector(".slides").scrollTo(offset, 0);
+    }, 10);
+    AOS.init();
+    $(document).ready(function () {
+        $('.toggler').click(function () {
+            $(this).siblings().removeClass("active");
+            $(this).toggleClass("active");
+
+        })
+
+    });
+</script>
+{% endwith %}
+
+</html>

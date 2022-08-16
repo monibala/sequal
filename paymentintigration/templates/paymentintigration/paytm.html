@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Paytm payment page</title>
+</head>
+<center>
+         <h1>Please do not refresh this page...</h1>
+      </center>
+      <form method="post" action="{{paytmposturl}}" name="paytm">
+         <table border="1">
+            <tbody>
+             {% for key,value in param_dict.items %}
+               <input type="hidden" name="{{key}}" value="{{value}}">
+             {% endfor %}
+             </tbody>
+         </table>
+         <script type="text/javascript">
+            document.paytm.submit();
+         </script>
+      </form>
+   </body>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+{% extends 'UserData/user/userbasic.html' %}
+{% block user %}
+<div style="margin-left:-30px;height:1000px;">
+    <div class="Family-headingdiv text-left" style="background:#cce6ff;">
+        <h3 style="font-size:25px;color:#0066cc;margin-top:30px;margin-left:400px;font-weight:bold">My Reports</h3>
+    </div>
+    {% if reports %}
+    <div class="Retake-Healthkarmadiv p-1 f-div"style="background:#cce6ff;height:1000px;>
+        {% for data in reports %}
+
+        <div class="card shadow-sm">
+            <div class="card-header">
+                {{data.booking.package.Package_name}}
+                <a href="{% url 'packagedetails' data.booking.package.slug %}">view package</a>
+            </div>
+            <div class="card-body  d-flex justify-content-between">
+                {% if data.booking.bookingfor != 'self' %}
+                <div>
+                    <h5 class="card-title">{{data.booking.member.name}} ({{data.booking.member.relation}})</h5>
+                    <strong>Message</strong>
+                    <p class="card-text my-1">{% if data.message %}{{data.message}}{% else %}Check Your Report{% endif %}</p>
+
+                </div>
+                {% else %}
+                <div>
+                    <h5 class="card-title">{{user.first_name}} {{user.last_name}} (self)</h5>
+                    <strong>Message</strong>
+                    <p class="card-text my-1">{% if data.message %}{{data.message}}{% else %}Check Your Report{% endif %}</p>
+
+                </div>
+                {% endif %}
+                <div>
+                    <a  href="{% url "reportdownload" data.id %}" class="btn btn-danger">View Now</a>
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="Retake-Healthkarmadiv f-div " style="background:#cce6ff;height:500px;">
+            <img src="/static/images/pana.png" style="height:300px;width:300px;margin-left:320px;">
+            <h4 style="font-size:25px;color:#0066cc;margin-top:30px;margin-left:370px;font-weight:bold">No Reports Found..!!</h4>
+        </div>
+        {% comment %} <img src="/static/images/l.png" style="height:180px;width:180px;margin-top:-190px;margin-left:850px;"> {% endcomment %}
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+<!------aside-end -->

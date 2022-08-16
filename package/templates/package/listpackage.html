@@ -1,0 +1,115 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block body %}
+<div class="location container my-3">
+    <a href="/" style="color: #cce6ff">Home</a>
+    <i class="fa fa-angle-right"></i>
+    <a  style="color: #0066cc; ">{{category.name}}</a>
+</div>
+
+
+<div class="first container">
+    <h3 style="color: #0066cc; ">{{category.name}} {{type}}s </h3>
+    <hr style='width:100px;background:blue;'>
+
+    <p>
+       {{catagory.describe}}
+    </p>
+
+</div>
+
+
+<div class="">
+  {% if subcate %}
+    <nav class="nav nav-pills nav-fill col-4 " >
+        {% url 'getbysubcategory' category.slug as packageurl %}
+        <a class="nav-link  {% if request.path == packageurl %}active{% endif %}" href="{{packageurl}}"style="background: #4fb1db!important;margin: 8px 8px 10px 10px;color:white;font-weight:bold;">Packages</a>
+        {% url 'testurl' category.slug 'test' as testurl %}
+        <a class="nav-link {% if request.path == testurl %}active{% endif %}" href="{{testurl}}" style="background: #4fb1db!important;margin: 8px 8px 10px 10px;color:white;font-weight: bold;">Tests</a>
+      
+      </nav>
+    {% else %}
+    <nav class="nav nav-pills nav-fill col-4">
+      {% url 'getbycategory' category.slug as packageurl %}
+      <a class="nav-link {% if request.path == packageurl %}active{% endif %}"  href="{{packageurl}}"style="background: #4fb1db!important;margin: 8px 8px 10px 10px;color:white;font-weight:bold;">Packages</a>
+      {% url 'testcategory' category.slug 'test' as testurl %}
+      <a class="nav-link {% if request.path == testurl %}active{% endif %}" href="{{testurl}}"style="background: #4fb1db!important;margin: 8px 8px 10px 10px;color:white;font-weight:bold;">Tests</a>
+    
+    </nav>
+    {% endif %}
+    <br>
+  <br>
+  <!-- <div class="first mt-5 " style="background:#e6faff;"> -->
+    <div class="card mx-2" style="background:#e6faff;" >
+    <div class="justify-content-center align-items-center d-flex flex-wrap infinite-container">
+        {% if type == 'package' %}
+        {% for data in packages %}
+            
+        {% include 'package/component/packageItem.html' with data=data %}
+        {% endfor %}
+        {% else %}  
+        {% for data in packages %}
+            
+        {% include 'package/component/testitem.html' with data=data %}
+        {% endfor %}
+
+        {% endif %}
+    </div>
+  </div>
+  
+    
+    <center class="my-3">
+   
+    <div class="spinner-border text-danger loading" style="display: none;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </center>
+
+
+  
+    {% if packages.has_next %}
+    <a class="infinite-more-link" href="?page={{ packages.next_page_number }}">More</a>
+    {% endif %}
+
+</div>
+<br>
+  <br>
+  
+<div class="second container">
+  <h3 style="color: #0066cc;">Symptoms&#9658</h3>
+  <hr style='width:100px;background:blue;'>
+  <br>
+  <br>
+  
+  <img style="align-items:center; justify-content:center;" class="m-auto"
+  src="/static/images/11.png"
+  alt="">
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <h3 style="color: #0066cc; ">Why Acidity Testing is important?&#9658</h3>
+  <br> <br>
+   
+    {{category.description|safe}}
+</div>
+{% endblock %}
+
+
+{% block basicscript %}
+<script src="{% static 'loading/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'loading/infinite.min.js' %}"></script>
+<script>
+
+    var infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0],
+      onBeforePageLoad: function () {
+        $('.loading').show();
+      },
+      onAfterPageLoad: function ($items) {
+        $('.loading').hide();
+      }
+    });
+</script>
+{% endblock %}

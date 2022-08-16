@@ -1,0 +1,59 @@
+{% extends 'superuser/basic.html' %}
+{% block body %}
+{% load static %}
+{% load custumfilter %}
+<div class=" smart-card">
+    <h4 class="title">Available {{currentmodelname|title}}s in <a
+            href="{% url 'editdatamodel' appname modelname currentmodel.pk 'edit' %}">{{currentmodel}}</a> </h4>
+    <div class="table-responsive">
+        <div class=" shadow-lg p-3 mb-5 bg-white rounded">
+            <div class="my-3">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-backdrop='static'
+                    data-keyboard='false'>+Add New {{currentmodelname|title}} </button>
+            </div>
+           {% include 'superuser/componets/datatable.html' with modeldata=availbledata fields=fields appname=currentappname modelname=currentmodelname %}
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block formtitle %}+Add New {{currentmodelname|title}}{% endblock %}
+{% block addform %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    {{form.media}}
+    <input type="submit" class="btn btn-primary my-3" value="submit">
+</form>
+{% endblock %}
+{% block delete %}
+{% if appname and modelname  %}
+<div style="display: none;">
+    <form id="multideleteForm" method="post" action="{% url 'editdatamodel' currentappname currentmodelname 'multidelete' 'delete' %}">
+        {% csrf_token %}
+        <input type="text" name="delete" id="deletevalues">
+    </form>
+</div>
+{% endif %}
+{% endblock %}
+{% block exscript %}
+<script src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+
+
+<script type="text/javascript"
+src="{% static 'select/js/mdb.min.js' %}"></script>
+<script type="text/javascript">
+{ // Material Select Initialization
+  $(document).ready(function () {
+    $('.mdb-select').materialSelect();
+  });
+}
+</script>
+{%  endblock %}
+{% block exstyle %}
+<link rel="stylesheet"
+href="{% static 'select/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'select/css/mdb.min.css' %}">
+
+{%  endblock %}

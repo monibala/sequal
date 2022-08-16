@@ -1,0 +1,139 @@
+{% extends 'UserData/user/userbasic.html' %}
+{% block user %}
+
+<div style="margin-left:-30px;">
+
+    <div  class="Family-headingdiv text-left " style="background:#cce6ff;">
+        <h3 style="color:#0066cc;font-weight:bold">My Bookings</h3>
+    </div>
+
+    <div class="Retake-Healthkarmadiv f-div" style="margin: 0px;background:#cce6ff;height:800px;">
+        
+
+        <div class="alert alert-danger" id="family_list_error_div" style="display:none;">
+        </div>
+        <div id="myfamily_list_div" style="margin-bottom:0px;">
+            {% if Bookings %}
+            {% for data in Bookings %}
+            <div class="add-box">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table class="table" >
+                                <thead>
+                                    <tr>
+                                        {% if data.type == "package" %}
+                                        <th colspan="2"><a href="{% url 'packagedetails' data.package.slug %}"><h3>{{data.package.Package_name}}(Package)</h3></a></th>
+                                        {% else %}
+                                        <th colspan="2"><a href="{% url 'testdetails' data.test.slug %}"><h3>{{data.test.test_name}} (Test)</h3></a></th>
+                                        {% endif %}
+                                    </tr>
+                                </thead>
+                                {% if data.bookingfor == 'self' %}
+                                <tbody>
+                                    <tr>
+                                        <td class="db_titlecaption">Booking id : </td>
+                                        <td class="db_titleinfo">#{{data.Booking_id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="db_titlecaption">Booking For : </td>
+                                        <td class="db_titleinfo">{{user.first_name|title}} {{user.last_name|title}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="db_titlecaption">Relation : </td>
+                                        <td class="db_titleinfo">self,</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="db_titlecaption">Gender : </td>
+                                        <td class="db_titleinfo">{{user.gender}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="db_titlecaption">Mobile Number : </td>
+                                        <td class="db_titleinfo">{{user.phone}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="db_titlecaption">Report : </td>
+                                        <td class="db_titleinfo"><span class="badge badge-primary">
+                                            {% if data.report %}
+                                            <a href="{% url "report" %}" class="text-light" style="margin-left: 0px;" target="_blank" rel="noopener noreferrer">Uploaded</a>
+                                            {% else %}
+                                            Will Upload soon...
+                                            {% endif %}
+                                        </span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="db_titlecaption">Payment status : </td>
+                                        <td class="db_titleinfo">
+                                            {% if data.status == 'success' %}
+                                            <span class="badge badge-success" >Paid</span>
+                                            {% else %}
+                                            <span class="badge badge-secondary">Cash on sample collection</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                {% else %}
+                                <tbody>
+                                    <tr>
+                                        <td class="db_titlecaption">Booking id : </td>
+                                        <td class="db_titleinfo">#{{data.Booking_id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="db_titlecaption">Booking For : </td>
+                                        <td class="db_titleinfo">{{data.member.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="db_titlecaption">Relation : </td>
+                                        <td class="db_titleinfo">{{data.member.relation}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="db_titlecaption">Gender : </td>
+                                        <td class="db_titleinfo">{{data.member.gender|title}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="db_titlecaption">Mobile Number : </td>
+                                        <td class="db_titleinfo">{{data.member.mobile}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="db_titlecaption">Report : </td>
+                                        <td class="db_titleinfo"><span class="badge badge-primary">
+                                            {% if data.report %}
+                                            <a href="{% url "report" %}" class="text-light" style="margin-left: 0px;" target="_blank" rel="noopener noreferrer">Uploaded</a>
+                                            {% else %}
+                                            Will Upload soon...
+                                            {% endif %}
+                                        </span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="db_titlecaption">Payment status : </td>
+                                        <td class="db_titleinfo">
+                                            {% if data.status == 'success' %}
+                                            <span class="badge badge-success">Paid</span>
+                                            {% else %}
+                                            <span class="badge badge-secondary">Cash on sample collection </span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                {% endif %}
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <img src="/static/images/pana.png" style="height:300px;width:300px;margin-left:320px;">
+
+            <h4 style="font-size:25px;color:#0066cc;margin-top:30px;margin-left:370px;font-weight:bold">No Booking Found..!!</h4>
+            {% endif %}
+            {% comment %} <img src="/static/images/l.png" style="height:180px;width:180px;margin-top:-73px;margin-left:850px;"> {% endcomment %}
+        </div>
+        
+    </div>
+    
+</div>
+{% endblock %}
+
+<!------aside-end -->

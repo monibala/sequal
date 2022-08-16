@@ -1,0 +1,68 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block body %}
+<div class="location container my-3">
+    <a href="/" style="color: #000">Home</a>
+    <i class="fa fa-angle-right"></i>
+    <a style="color: #ff9800; ">search</a>
+</div>
+<div class="first container">
+    {% if request.GET.q %}
+    <h3>{{request.GET.q|title}}: {{result.paginator.count}} results found... </h3>
+    {% else %}
+    <h3>All services</h3>
+    {% endif %}
+    <p>
+        {{catagory.describe}}
+    </p>
+
+</div>
+<div class="container">
+    <div class="justify-content-center align-items-center d-flex flex-wrap infinite-container">
+        {% if result %}
+        {% for data in result %}
+        {% if data.Package_name %}
+        {% include 'package/component/packageItem.html' with data=data %}
+        {% else %}
+        {% include 'package/component/testitem.html' with data=data %}
+        {% endif %}
+        {% endfor %}
+        {% else %}
+
+        <img src="/static/images/search_no_result.webp" width="60%" alt="" srcset="">
+        <!-- <h1>No results found please try after some time.....</h1> -->
+        {% endif %}
+
+    </div>
+    <center class="my-3">
+        <div class="spinner-border text-danger loading" style="display: none;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </center>
+
+    {% if result.has_next %}
+    <a class="infinite-more-link" href="?page={{ result.next_page_number }}&q={{request.GET.q}}">More</a>
+    {% endif %}
+
+</div>
+<div class="second container">
+    {{category.description|safe}}
+</div>
+{% endblock %}
+
+
+{% block basicscript %}
+<script src="{% static 'loading/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'loading/infinite.min.js' %}"></script>
+<script>
+    var infinite = new Waypoint.Infinite({
+        element: $('.infinite-container')[0],
+        onBeforePageLoad: function () {
+            $('.loading').show();
+        },
+        onAfterPageLoad: function ($items) {
+            $('.loading').hide();
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,20 @@
+<div class="m-auto  col-md-3 infinite-item" style="padding: 0;">
+    <div class="card mx-2" style="width: 300px;">
+        <div style="height: 350px;background:#e6faff;color: black!important;;" class="check-up-card">
+            <span class="discount" style="border: 1px solid #4fb1db!important;background: #4fb1db!important;font-size:18px;">{{data.discount}}{% if '%' not in data.discount %}₹{% endif %} off</span>
+            <h4>{{data.test_name}}</h4>
+            <h4>Includes : {{data.Porfile_collection.count}} Parameter</h4>
+            <ul>
+                <li>{{data.test_name}}</li>
+            </ul>
+            <br>
+            <b>
+                <h3 style="color:black;margin-left: 10px;" ><del>₹{{data.test_price}}</del>
+                <h3 style="color:black;"> ₹{{data.final_cost}}
+                    <a href="{% url "testdetails" data.slug %}" style="border: 1px solid #4fb1db!important; background: #4fb1db!important;margin: 0px 0px 0px 150px!important;">+ Know More</button></a><br>
+                </h3>
+            </b>
+        </div>
+    </div>
+</div>
+

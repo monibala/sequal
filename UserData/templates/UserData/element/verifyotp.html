@@ -1,0 +1,152 @@
+{% load static %}
+<div class="row">
+    
+    <div class="col-lg-6 p-lg-5">
+        <div style="background:#e6eeff;margin-top:-50px;margin-left:-30px;width:700px;height:700px;">
+        <img src="/static/images/logo.png" style="height:50px;width:120px;margin-left:40px;margin-top:50px;">
+
+        <h3 style="margin-left:40px;margin-top:30px;color:#0066cc;">Verify OTP</h3>
+        <p style="margin-left:40px;color:black;">Otp sent to registered mobile number!!</p>
+
+     
+            
+            <p style="margin-left:40px;color:black;">Please enter verification code (OTP)</p>
+            <strong style="margin-left:40px;color:#0066cc;">+91 {{phone}} </strong>
+            <P style="margin-left:40px;">Otp is vaild : <span id="coundown" style="color:#0066cc;" >2:5</span></p>
+        
+            <form method="POST" id="otp-form" action="{% url 'verifyotp' %}?next={{request.GET.next}}" class="digit-group mt-4" data-group-name="digits" data-autosubmit="false" autocomplete="off">
+            {% csrf_token %}
+            <input type="hidden" name="phone" value="{{phone}}">
+            <input style="margin-left:-300px;" type="number" id="digit-1" name="digit-1" data-next="digit-2" />
+            <input  type="number" id="digit-2" name="digit-2" data-next="digit-3" data-previous="digit-1" />
+            <input type="number" id="digit-3" name="digit-3" data-next="digit-4" data-previous="digit-2" />
+            <input type="number" id="digit-4" name="digit-4" data-next="digit-5" data-previous="digit-3" />
+            <input type="number" id="digit-5" name="digit-5" data-next="digit-6" data-previous="digit-4" />
+            <input type="number" id="digit-6" name="digit-6" data-previous="digit-5" />
+            
+            <div id="#loadingdiv"></div>
+
+            
+            <div style="display: none;">
+                
+                <input type="submit" id="otp-form-submit" value="submit" >
+            </div>
+        </form>
+        <div id="otperror" class=" mx-4 mt-2"></div>
+        <input type="submit" onclick="$('#otp-form-submit').click()" value="Login" style="margin-left:40px; margin-top:20px; 
+        background:#4fb1db;border:none;width:120px;height:40px;color:white;border-radius:5px ;">
+       
+
+    </div>
+</div>
+    <div class="col-lg-6">
+        <div style="height:670px;width:660px;background:#ccddff;">
+            <img src="/static/images/otp.png" style="height:500px;width:500px;margin-left:70px;margin-top:70px;">
+        </div>
+    </div>
+       
+</div>
+<script>
+    AOS.init();
+    $('.digit-group').find('input').each(function() {
+    $(this).attr('maxlength', 1);
+    $(this).on('keyup', function(e) {
+    var parent = $($(this).parent());
+    
+    if(e.keyCode === 8 || e.keyCode === 37) {
+        var prev = parent.find('input#' + $(this).data('previous'));
+        
+        if(prev.length) {
+            $(prev).select();
+        }
+    } else if((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105) || e.keyCode === 39) {
+        var next = parent.find('input#' + $(this).data('next'));
+        
+        if(next.length) {
+            $(next).select();
+        } else {
+            if(parent.data('autosubmit')) {
+                parent.submit();
+            }
+        }
+    }
+});
+});
+var countDownDate = new Date("{{expire}}").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+    
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+    
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+  // Output the result in an element with id="demo"
+  document.getElementById("coundown").innerHTML =
+ minutes + "m " + seconds + "s ";
+    
+  // If the count down is over, write some text 
+  if (distance < 0) {
+    clearInterval(x);
+    var otpstatus = "EXPIRED"
+    document.getElementById("coundown").innerHTML = otpstatus;
+  }
+}, 1000);
+$("#otp-form").submit(function (e) {
+
+e.preventDefault(); // avoid to execute the actual submit of the form.
+
+var form = $(this);
+var actionUrl = form.attr('action');
+var method = form.attr('method')
+var loadingdiv = $("#loadingdiv")
+var otperr = $("#otperror")
+otperr.html('')
+loadingdiv.html(`<center><img src="/static/Spinner-1s-44px.gif" alt="loading"></center>`)
+if (document.getElementById("coundown").innerHTML== "EXPIRED"){
+    otperr.html(`Otp is Expired
+    <form action="{% url 'userlogin' %}?next={{request.GET.next}}" id="loginform" style="display:none">
+                            {% csrf_token %}
+    <input type="hidden" value="+91" readonly>
+    <input type="hidden" placeholder="Enter your Mobile Number" name="phone" id="" maxlength="10" minlength="10" value={{phone}} required  > <br>
+    <div id="otpdiv"></div>
+    <div id="errordiv" class=""></div>
+    <div id="loadingdiv"></div>
+    </form>
+    <a onclick="resendotp()" class="text-danger" style="cursor: pointer;">resend<a>
+    `)
+    return false
+}
+$.ajax({
+    type: method,
+    url: actionUrl,
+    data: form.serialize(), // serializes the form's elements.
+    success: function (data) {
+        if (data.login){
+            window.location.href = data.next;  // show response from the php script.
+        }
+    }   
+});
+
+});
+function resendotp(){
+    $.ajax({
+            type: "POST",
+            url: "{% url 'userlogin' %}?next={{request.GET.next}}",
+            data: $('#loginform').serialize(), // serializes the form's elements.
+            success: function (data) {
+                console.log(data)// show response from the php script.
+                $("#login-container").html(data);
+                $("#pagename").attr('class', 'otp-page')
+            }
+        });
+}
+</script>

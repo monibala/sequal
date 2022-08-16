@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEQUEL</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="/static/new.css">
+    <link rel="stylesheet" href="/static/new.js">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <a class="navbar-brand" href="#"><img class="logo" src="/static/images/logo 2.png" alt="images"></a>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Popular Packages
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">pacxkage 1</a>
+                        <a class="dropdown-item" href="#">package 2</a>
+                        <a class="dropdown-item" href="#">package 3</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Risk
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">risk 1</a>
+                        <a class="dropdown-item" href="#">risk 2</a>
+                        <a class="dropdown-item" href="#">risk 3</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Habit
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">habbit 1</a>
+                        <a class="dropdown-item" href="#">habbit 2</a>
+                        <a class="dropdown-item" href="#">habbit 3</a>
+                    </div>
+                </div>
+                <button class="uploadbtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z"/>
+                      </svg>
+                    upload prescription
+                </button>
+                <button class="navimage">
+<img  class="navimage"src="/static/images/eating poorly 1.png" alt="image">
+</button>
+        </nav>
+        </div>
+
+
+
+
+
+    </header>
+
+        <!-- main portion starts -->
+        <main>
+            <!-- ccarousel -->
+
+            <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container" style="margin-left:-40px;">
+  {% comment %} <h2>Carousel Example</h2> {% endcomment %}
+  <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:1300px;">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+
+      <div class="item active">
+        <img src="/static/images/Frame 1.png" alt="Los Angeles" style="width:100%;">
+        <div class="carousel-caption">
+          <h3>Los Angeles</h3>
+          <p>LA is always so much fun!</p>
+        </div>
+      </div>
+
+      <div class="item">
+        <img src="/static/images/Frame 3.png" alt="Chicago" style="width:100%;">
+        <div class="carousel-caption">
+          <h3>Chicago</h3>
+          <p>Thank you, Chicago!</p>
+        </div>
+      </div>
+    
+      <div class="item">
+        <img src="/static/images/Frame 5.png" alt="New York" style="width:100%;">
+        <div class="carousel-caption">
+          <h3>New York</h3>
+          <p>We love the Big Apple!</p>
+        </div>
+      </div>
+  
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+
+</body>
+</html>
+
+
+            {% comment %} <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2" class="active"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="carousel" src="/static/images/Frame 1.png" alt="First slide">
+                    </div>
+                    <div class="carousel-item Next">
+                        <img class="carousel" src="/static/images/Frame 3.png" alt="Second slide">
+                    </div>
+                    <div class="carousel-item Next">
+                        <img class="carousel" src="/static/images/Frame 5.png" alt="Third slide">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div> {% endcomment %}
+
+            <div class="searchbar" >
+                <input class="bar" type="text" placeholder="Search Your Package / Test" size="90" style="border:1px solid lightblue;;border-radius:5px;width:800px;margin-left:-80px;height:50px;">
+                <button class="search" style="margin-left:-10px;height:50px;border:1px solid lightblue;width:80px">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg>
+                </button>
+                
+                <div class="text">
+                    <h2 style="margin:auto;">
+                        <b> Full Body Packages</b>
+                        <hr class="line" style="margin-left:30px;">
+                    </h2>
+
+                </div>
+            </div>
+
+            <div class="cards" style="background: #e6f2ff;" >
+
+                <div class="card" style="height:350px;">
+                    <h4 style="font-size:20px;"> <b> HIV</b></h4>
+                    <h5 ><u><b> screening package</b> </u></h5>
+                    includes: 3 parameters
+                    <br><br>
+                    <br><br>
+                    <ul>
+                        <li>complete blood count</li>
+                        <li>sugar profile</li>
+                        <li>HIV screening</li>
+                    </ul>
+                    <br><br>
+                    Rs. <strike>2500</strike> 1150/-
+                    <button class="know-more" style="float:right;font-size:10px;height:28px;width:80px;">
+                        +know more
+                    </button>
+                </div>
+
+                <div class="card" style="height:350px;">
+                    <h4 style="font-size:20px;"> <b> HIV</b></h4>
+                    <h5><u><b> screening package</b> </u></h5>
+                    includes: 3 parameters
+                    <br><br>
+                    <br><br>
+                    <ul>
+                        <li>complete blood count</li>
+                        <li>sugar profile</li>
+                        <li>HIV screening</li>
+                    </ul>
+                    <br><br>
+                    Rs. <strike>2500</strike> 1150/-
+                    <button class="know-more" style="float:right;font-size:10px;height:28px;width:80px;">
+                        +know more
+                    </button>
+                </div>
+
+                <div class="card" style="height:350px;">
+                    <h4 style="font-size:20px;"> <b> HIV</b></h4>
+                    <h5><u><b> screening package</b> </u></h5>
+                    includes: 3 parameters
+                    <br><br>
+                    <br><br>
+                    <ul>
+                        <li>complete blood count</li>
+                        <li>sugar profile</li>
+                        <li>HIV screening</li>
+                    </ul>
+                    <br><br>
+                    Rs. <strike>2500</strike> 1150/-
+                    <button class="know-more" style="float:right;font-size:10px;height:28px;width:80px;">
+                        +know more
+                    </button>
+                </div>
+
+                <div class="card" style="height:350px;">
+                    <h4 style="font-size:20px;"> <b> HIV</b></h4>
+                    <h5><u><b> screening package</b> </u></h5>
+                    includes: 3 parameters
+                    <br><br>
+                    <br><br>
+                    <ul>
+                        <li>complete blood count</li>
+                        <li>sugar profile</li>
+                        <li>HIV screening</li>
+                    </ul>
+                    <br><br>
+                    Rs. <strike>2500</strike> 1150/-
+                    <button class="know-more" style="float:right;font-size:10px;height:28px;width:80px;">
+                        +know more
+                    </button>
+                </div>
+            </div>
+
+            <!-- risk package -->
+            <div class="riskpackage">
+                <h2>Risk Packages</h2>
+                <hr class="riskline">
+                <div class="card2">
+                    <img class="acidity" src="/static/images/stomach 1.png" alt="acidity">
+                    Acidity
+                </div>
+                <div class="card2">
+                    <img class="acidity" src="/static/images/cancer 1.png" alt="images">
+                    Cancer
+                </div>
+                <div class="card2">
+                    <img class="acidity" src="/static/images/allergy 1.png" alt="images">
+                    Alergy
+                </div>
+                <div class="card2">
+                    <img class="acidity" src="/static/images/fever1.png" alt="images">
+                    Fever
+                </div>
+                <div class="card2">
+                    <img class="acidity" src="/static/images/diabetes 1.png" alt="images">
+                    Diabetes
+                </div>
+                <div class="card2">
+                    <img class="acidity" src="/static/images/fever.png" alt="images">
+                    infection
+                </div>
+                <div class="card2">
+                    <img class="acidity" src="/static/images/anaemia 1.png" alt="images">
+                    anaemia
+                </div>
+                <div class="card2">
+                    <img class="acidity" src="/static/images/immune-system 1.png" alt="">
+                    Immune
+                </div>
+                <br><br>
+
+                <button class="view" style="width:100px;">
+                    view more
+                </button>
+            </div>
+
+            <!-- habit packages -->
+
+            <div class="habitpackage">
+                <h2>Habit Packages</h2>
+                <hr class="riskline">
+                <div class="card3">
+                    <img class="acidity" src="/static/images/anger 1.png" alt="acidity"><br>
+                    Anger
+                </div>
+                <div class="card3">
+                    <img class="acidity" src="/static/images/eating poorly 1.png" alt="images"><br>
+                    Eating
+                    poorly
+                </div>
+                <div class="card3">
+                    <img class="acidity" src="/static/images/heatburn 1.png" alt="images"><br>
+                    Heatburn
+                </div>
+                <div class="card3">
+                    <img class="acidity" src="/static/images/stress 2.png" alt="images"><br>
+                    Stress
+                </div>
+                <div class="card3">
+                    <img class="acidity" src="/static/images/junkfood 1.png" alt="images"><br>
+                    Junk food
+                </div>
+                <div class="card3">
+                    <img class="acidity" src="/static/images/low iron food 2.png" alt="images"><br>
+                    Low iron food
+                </div>
+                <div class="card3">
+                    <img class="acidity" src="/static/images/anaemia 1.png" alt="images"><br>
+                    Medicine overuse
+                </div>
+                <div class="card3">
+                    <img class="acidity" src="/static/images/immune-system 1.png" alt="images"><br>
+                    improper food
+                </div>
+                <br><br>
+
+                <button class="view" style="width:100px;">
+                    view more
+                </button>
+            </div>
+
+            <!-- cards again -->
+            <div class="cards2">
+                <h2> Why Choose Sequel</h2>
+                <hr class="riskline">
+                <div>
+                <div class="newcard">
+                    <img class="newimg" src="/static/images/undraw_breakfast_psiw 1.png" alt="images"><br>
+                    1.8 Lakhs+ Diet Consultations
+                </div>
+
+                <div class="newcard">
+                    <img class="newimg" src="/static/images/Cardiologist-pana (1) 1.png" alt="images"><br>
+                    Most Trusted Labs By Hospitals And Doctors
+                </div>
+
+                <div class="newcard">
+                    <img class="newimg" src="/static/images/undraw_report_re_f5n5 1.png" alt="images"><br>
+                    3 Lakhs+ Doctor Consultation
+                </div>
+
+                <div class="newcard">
+                    <img class="newimg" src="/static/images/Hospital building-bro 1.png" alt="images"><br><br>
+                    On Time Report
+                </div>
+                </div>
+                <h3>The Exceilence Of</h3>
+                <hr class="riskline">
+                <h3 class="colorchange">Sequal Diagnosis Labs</h3>
+                <hr class="riskline">
+            </div>
+
+            <!-- prefinal paragraph -->
+            <div class="prefinal row">
+                <div class="half col">
+                    <img class="tubes" src="/static/images/img.png" alt="testtube" style="margin-left:40px;height:400px;">
+                </div>
+                <div class="half2 col" style="padding:50px;">
+                    <p class="paragraph" style="font-size:18px;margin-top:-100px;">
+                        Sequal diagnosis is one of the most trusted players in diagnostics today, with
+                        a network of fully automated labs across major cities in India, that are hardcoded with
+                        innovative technology, advanced robotics and intelligent digital solutions.
+
+                        With an extensive team of highly qualified lab
+
+                        technicians and pathologists, our single-minded purpose is to follow the strictest of quality
+                        measures to maintain accuracy for each test we perform.
+                    </p>
+                    <button class="know-more2" style="width:100px;">
+                        know more
+                    </button>
+                </div>
+            </div>
+            <div class="testimonials"  >
+                <h2>
+                    Testimonials
+                </h2>
+                <hr class="riskline">
+                <div style="margin-left:150px;">
+              
+                <div class="first" style="height:200px;width:350px;float:left;position:absolute;margin-left:-220px;margin-top:50px;background:#4db8ff">
+                    <p style="margin-top:40px;"> very setisfied with sample collection <br>
+                    procedure.Representative was <br> quite professional and skillful.</p>
+                    <img class="newimg" src="/static/images/undraw_breakfast_psiw 1.png" alt="images" style="border-radius:50px;height:70px;width:70px;margin-top:70px;margin-left:30px;">
+                    <h4 style="margin-left:30px;">Dhiruji</h4>
+                </div>
+               
+
+          
+
+                
+                <div class="second" style="height:200px;width:350px;float:left;position:relative;margin-left:60px;margin-top:90px;background:#b3b3b3;">
+                    <p style="margin-top:40px;"> very setisfied with sample collection <br>
+                        procedure.Representative was <br> quite professional and skillful.</p>
+                    <img class="newimg" src="/static/images/undraw_breakfast_psiw 1.png" alt="images" style="border-radius:50px;height:70px;width:70px;margin-top:70px;margin-left:30px;">
+                    <h4 style="margin-left:30px;">Revindra</h4>
+                </div>
+                <div class="third" style="height:200px;width:350px;float:left;position:absolute;margin-top:90px;margin-left:-120px;background:#b3b3b3;">
+                    <p style="margin-top:40px;"> very setisfied with sample collection <br>
+                        procedure.Representative was <br> quite professional and skillful.</p>
+                    <img class="newimg" src="/static/images/undraw_breakfast_psiw 1.png" alt="images" style="border-radius:50px;height:70px;width:70px;margin-top:70px;margin-left:30px;">
+                    <h4 style="margin-left:30px;">Mukesh</h4>
+                </div>
+            </div>
+            </div>
+
+            <!-- footer -->
+            <footer style="margin-top:400px;">
+                <section class="footer">
+                    <div class="container text-center text-md-start ">
+
+                        <div class="row mt-3">
+
+                            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4 mt-5">
+                                <img class="logo" src="/static/images/logo 2.png" alt="brand logo">
+                                <h6 class="text-uppercase fw-bold mb-4">
+                                    <i class="fas fa-gem me-3"></i>
+                                    <br>
+                                    helpline: 9867867867
+                                    <br><br>
+                                    <button class="know-more2">
+                                        contact us
+                                    </button>
+                                </h6>
+
+                            </div>
+
+                            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 mt-5">
+                                <!-- Links -->
+                                <h6 class="text-uppercase fw-bold mb-4">
+                                    Products
+                                </h6>
+                                <p>
+                                    <a href="#!" class="text-reset">Angular</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-reset">React</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-reset">Vue</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-reset">Laravel</a>
+                                </p>
+                            </div>
+
+                            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 mt-5">
+                                <!-- Links -->
+                                <h6 class="text-uppercase fw-bold mb-4">
+                                    Products
+                                </h6>
+                                <p>
+                                    <a href="#!" class="text-reset">Angular</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-reset">React</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-reset">Vue</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-reset">Laravel</a>
+                                </p>
+                            </div>
+
+                            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4 mt-5">
+                                <!-- Links -->
+                                <h6 class="text-uppercase fw-bold mb-4">
+                                    Useful links
+                                </h6>
+                                <p>
+                                    <a href="#!" class="text-reset">Pricing</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-reset">Settings</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-reset">Orders</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-reset">Help</a>
+                                </p>
+                            </div>
+
+                            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 mt-5">
+
+                                <h6 class="text-uppercase fw-bold mb-4">
+                                    Contact
+                                </h6>
+                                <p class="contact-text">
+                                    New York, NY 10012, US
+                                    info@example.com <br>
+                                    + 01 234 567 89 <br>
+                                    + 01 234 567 89
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+                    © 2021 Copyright: SEQUEL
+
+                </div>
+            </footer>
+
+        </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+
+</body>
+
+
+</html>

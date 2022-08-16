@@ -1,0 +1,18 @@
+{% extends 'superuser/basic.html' %}
+{% block body %}
+{% load custumfilter %}
+<div class=" smart-card">
+    <h4 class="title">{{modelname|title}}</h4>
+    <div class="table-responsive">
+        <div class=" shadow-lg p-3 mb-5 bg-white rounded">
+            <div class="my-3">
+                <a class="btn btn-primary" href="{% url 'editdatamodel' appname modelname 'newmodel' 'add' %}">+Add New
+                    {{modelname|cemelcase|title}} </a>
+                    <a class="btn btn-warning mx-2" href="{% url 'exportexcel' appname modelname 'excel' %}">Export {{modelname|cemelcase|title}} </a>
+            </div>
+           {% include 'superuser/componets/datatable.html' with modeldata=modeldata fields=fields %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

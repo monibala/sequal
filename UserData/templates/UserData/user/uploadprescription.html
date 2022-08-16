@@ -1,0 +1,247 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block body %}
+
+<style>
+    .show-div ul {
+margin: 0;
+padding: 0;
+list-style: none;
+}
+li.pip img.imageThumb {
+    width: 100%!important;
+}
+
+.upload-page .second .step-2 button[type="submit"] {
+    width: auto;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    background: #4fb1db;
+}
+.upload-page .second .step-2 button {
+    margin-bottom: 30px;
+    text-transform: capitalize;
+    background-color: transparent;
+    border: 1px solid silver;
+    height: 40px;
+    font-size: 16px;
+    width: 100%;
+    line-height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 0 0 1.5rem;
+    border-radius: 0;
+    font-family: Lato, sans-serif;
+    padding-top: 4px;
+}
+.uploadfile::-webkit-file-upload-button {
+  visibility: hidden;
+  display: none;
+}
+.uploadfile::before {
+    background: #4fb1db;
+    content: 'Upload Prescription';
+    padding: 5px 8px;
+    border-color: #4fb1db;
+    /* border: 1px solid; */
+    border-radius: 3px;
+    outline: none;
+    white-space: nowrap;
+    
+}
+</style>
+<div class="first" style="position:relative; background:url('/static/images/inner-banner-gray.jpg');  height: 60vh;">
+    <h1 style="position:absolute; left: 60px; top:50%; transform: translateY(-50%); color: rgb(62, 59, 59);">Upload Your <br> Prescription</h1>
+</div>
+<div class="second container mt-5">
+    <div class="row">
+        <div class="col-lg-6 step-1">
+            <div class="first-row" style="background: #4fb1db;">
+                <h3>Step 1</h3>
+                <p>Click below to Upload a Prescription</p>
+            </div>
+            <div class="second-row">
+                <!-- <input type="file" class="upload-file" id="imgInp" name="prescription[]" accept="image/*" multiple="multiple"><br> -->
+                <h5>Attached  Prescription</h5>
+                <div class="file-div show-div" >
+                    <img id="blah" src="/img/file-img.jpg" alt="" /><ul id="showFiles"></ul>
+                   
+                    <input type="file"  class="uploadfile"  id="imgInp" name="prescription[]" accept="image/*" multiple="multiple" style="display: block; margin-top:5rem; margin-left: 160px;"><br>
+                </div>
+                <ul>
+                    <li>Image size should not exceed 2 MB.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6 step-2">
+            <div class="first-row" style="background: #4fb1db;">
+                <h3>Step 2</h3>
+                <p>Enter below information</p>
+            </div>
+            <div class="second-row">
+                {% csrf_token %}
+                <input type="text" class="input-type" value="{{user.first_name}} {{user.last_name}}" name="up_name" readonly id=""><br>
+                <input type="tel" class="input-type" value="{{user.phone}}" name="mobile_number" readonly id=""><br>
+                <div class="d-flex">
+                    <button type="submit" id="uploadprescription">upload</button>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="my-4"></div>
+
+<script>
+    var form_data   =   new FormData();
+    function toggleloader(val){
+        if (val){
+            $("#uploadprescription").html(`<div class="spinner-border p-1" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>`)
+            $("#uploadprescription").prop('disabled', true)
+        }
+        else{
+            $("#uploadprescription").html('upload')
+            $("#uploadprescription").prop('disabled', false)
+        }
+    }
+     function readURL(input) {
+            if (input.files) {
+                var files = input.files,  filesLength = files.length;
+                $("#showFiles").innerHTML = '';
+                var total_files =   form_data.getAll('files[]').length + filesLength ;
+                if(total_files > 3){
+                    filesLength =   3 - form_data.getAll('files[]').length; 
+                }
+                for (var i = 0; i < filesLength; i++) {
+                    var f = files[i];
+                    var reader = new FileReader();
+                    reader.fileName =   files[i].name; 
+                    var size_length    =   reader.size     =   files[i].size; 
+                    console.log(size_length);
+                    if(size_length > 0 && size_length < 2097153){
+                        var j   =   0;
+                        reader.onload = function (e) {
+                            var file        =   e.target;
+                            var name_code   =   convertText(e.target.fileName);
+                            var size = e.target.size;
+                            console.log(name_code);
+                            var html        =   "<li class=\"pip\" data-id="+j+"><span class=\"removeupload\"><img src='/static/images/remove-attachment.png'></span><br><img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + name_code + "\"/>" +
+
+                              "<br/>" +
+
+                              "</li>";
+                            $("#showFiles").append(html);
+                            j++;
+                        }
+                        form_data.append("files[]", f);
+
+                        reader.readAsDataURL(f);
+                    }else{
+                        showStrError("error", "Image size should not exceed 2 MB.");
+                    }
+                }
+                $('#imgInp').val('');
+            }
+        }
+        $("#imgInp").change(function(){
+                if ( form_data.getAll("files[]").length < 3 ){ 
+                    readURL(this);
+                    $("#blah").addClass("hidden");
+                }else                    
+                    alert("Maximum 3 prescription can be uploaded.");
+            });
+            function convertText(input) {
+            var output = '';
+            len = input.length;
+            for (var i = 0;  i < len; i++) {
+                output += input[i].charCodeAt(0)
+            }
+            return output;
+        }
+        $('body').on('click', '.removeupload', function () {
+            console.log("working")
+                var title   =   $(this).parent(".pip").find('img.imageThumb').attr('title');
+                var files   =   form_data.getAll("files[]");
+                form_data   =   new FormData();                       
+                $(this).parent(".pip").remove();
+                $.each(files, function( index, value ) {
+                    var namecode = convertText(value.name);
+                    if(title   !=  namecode)
+                        form_data.append("files[]", value);
+                });
+                if(form_data.getAll("files[]").length == 0)
+                    $("#blah").removeClass("hidden");
+            });
+
+
+
+
+            $('body').on('click', '#uploadprescription', function(e){
+                var name            =   $( "input[name='up_name']" ).val();
+                var mobile          =   $( "input[name='mobile_number']" ).val();
+                var token          =   $( "input[name='csrfmiddlewaretoken']" ).val();
+                var total_files     =   form_data.getAll("files[]").length;
+                var source          =   'web';
+                                
+                var letterNumber = /^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/;
+                
+                if(name.length == 0){
+                    alert("Name Should be required");
+                }                
+                if(form_data.getAll('files[]').length == 0 || form_data.getAll('files[]').length > 3){
+                    alert("Please upload the prescription first");
+                    return false;
+                }
+                if(!name.match(letterNumber))
+                {
+                    alert("Name should not contain special character");
+                    return false;
+                }
+                
+                if(mobile.length != 10){
+                    alert("Mobile number is missing");
+                    return false;
+                }
+                
+                if(total_files  ==  0 && total_files > 3){
+                    alert("Upload atleast one prescription");
+                    return false;
+                }
+                
+                form_data.append('mobile_number', mobile);
+                form_data.append('name', name);
+                form_data.append('csrfmiddlewaretoken', token);
+                
+                $.ajax({
+                    url: "{{request.path}}",
+                    type: "post",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    beforeSend: function() {
+                        toggleloader(true);
+                    },
+                    success: function (response) {
+                        toggleloader(false);
+                        if(response.status){
+                            window.location.replace(response.url);
+                        }else{
+                            alert(response.error);
+                        }
+                        return false;
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        var jsonResponseText = $.parseJSON(jqXHR.responseText);
+                        alert(jsonResponseText.toString());
+                        return false;
+                    }
+                });
+            });  
+</script>
+{% endblock %}
+

@@ -1,0 +1,89 @@
+{% extends 'superuser/basic.html' %}
+{% load custumfilter %}
+{% load static %}
+{% block body %}
+<style>
+  .related-widget-wrapper{
+    width: 100%;
+    padding: 0px 18px 0 18px;
+  }
+</style>
+<div class="card card-primary ">
+  <div class="card-header  bg-primary text-light">
+    <h3 class="card-title">Edit </h3>
+  </div>
+  <div class="card-body ">
+    <div class=" shadow-lg p-3 mb-5 bg-white rounded">
+      <form method="post" class="row" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.media}}
+        {{form.as_p}}
+        <div class="col-md-12">
+        <input type="submit" class="btn btn-primary my-3" />
+        {% if form.instance %}
+        <a tabindex="0" class="btn btn-danger " role="button" data-toggle="popover" data-trigger="focus"
+          data-html="true" title="" data-content="
+                                <h6>Are you sure to delete this?</h6>
+                                <form method='get' action='{% url 'editdatamodel' appname modelname form.instance.pk 'delete' %}'>
+                                <br>
+                                    <input type='submit' class='btn btn-danger btn-xs' value='Yes,Please'>
+                                    </form>
+                                " data-original-title="">
+          <i class="ti-trash"></i>Delete
+        </a>{% endif %}</div>
+      </form>
+      <div class='row container'>
+        {% for data in relateddata %}
+        {% if data.related_name is not None %}
+
+        <a href="{% url 'relatedmodel' appname=appname modelname=modelname objectid=objectid relatedfield=data.related_name %}"
+          class="btn btn-primary {% if forloop.counter > 1 %}mx-2{% endif %}">{% if  "onetoonerel" in data|slugify %}View
+          {{data.related_name}}s{% else %}Available {{data.related_name}}s{% endif %}</a>
+        {% if showrelated %}
+        <div>
+          {{data|showrelated:objectid}}
+        </div>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
+{% block exscript %}
+<script src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+
+
+<script type="text/javascript" src="{% static 'select/js/mdb.min.js' %}"></script>
+<script type="text/javascript">
+  { // Material Select Initialization
+    $(document).ready(function () {
+      $('.mdb-select').materialSelect();
+    });
+  }
+</script>
+{%  endblock %}
+{% block exstyle %}
+<link rel="stylesheet" href="{% static 'select/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'select/css/mdb.min.css' %}">
+
+{%  endblock %}
+{% comment %}<div class="row">
+  <div class="col-md-12">
+
+    <select class="mdb-select colorful-select dropdown-primary md-form" multiple searchable="Search here..">
+      <option value="" disabled selected>Choose your country</option>
+      <option value="1">USA</option>
+      <option value="2">Germany</option>
+      <option value="3">France</option>
+      <option value="4">Poland</option>
+      <option value="5">Japan</option>
+    </select>
+    <label class="mdb-main-label">Label example</label>
+    <button class="btn-save btn btn-primary btn-sm">Save</button>
+
+  </div>
+</div>{% endcomment %}

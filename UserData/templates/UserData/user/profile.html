@@ -1,0 +1,189 @@
+{% extends 'UserData/user/userbasic.html' %}
+{% block user %}
+<div style="margin-left:-30px;">
+    <div class="Family-headingdiv text-left"  style="background:#cce6ff;">
+        <h3 style="color:#0066cc;font-weight:bold">Edit Profile</h3>
+    </div>
+    <div class="Retake-Healthkarmadiv" style="background:#cce6ff;height:1000px;">
+
+        <div class="">
+            <div class="profile-details">
+                <div id="user_image_name_div">
+
+                    <div class="user-img" style="border-radius: 0%;margin-left:100px;">
+                        <img class="center-block" src="{{request.user.profile.url}}" id="user_profile_pic">
+
+                        <a href="javascript:void(0)" class="btn btn-info penciledit"
+                            onclick="document.getElementById('my_pics').click();"> <i class="fa fa-camera"
+                                aria-hidden="true"></i> </a>
+                    </div>
+                </div>
+
+                <div class="user-profile-details">
+                    {% comment %} <h3>Hi, <span id="display_profile_head_name">{{request.user.first_name}}</span></h3>
+                    <p>{{request.user.email}}</p> {% endcomment %}
+                    {% comment %} <a href="javascript:void(0);" class="btn btn-primary" onclick="displayEditProfile();"
+                        id="edit_profile_link">Edit Profile</a> {% endcomment %}
+                </div>
+            </div>
+            <br>
+
+
+            <form id="update_pic_form" method="post" action="{{request.path}}?profile=update" name="update_pic_form"
+                enctype="multipart/form-data" >
+                {% csrf_token %}
+                <input type="file" name="my_pics" id="my_pics">
+            </form>
+
+            <div class="user-form row" id="profile_display_info" style="background:white;width:400px;margin-top:-70px;border-radius:8px;">
+                <div class="lft-f-details col">
+                    <div>
+                        <h6>Name</h6>
+                        <p id="display_profile_name">{{request.user.first_name}} {{request.user.last_name}}</p>
+                    </div>
+                    <div>
+                        <h6>Email Id</h6>
+                        <p style="readonly">{{request.user.email}}</p>
+                    </div>
+                    <div>
+                        <h6>Age</h6>
+                        <p id="display_profile_age">{{request.user.age}}</p>
+                    </div>
+                </div>
+
+                <div class="rgt-f-details col">
+                    <div>
+                        <h6>Mobile Number</h6>
+                        <p style="readonly">{{request.user.phone}}</p>
+                    </div>
+                    <div>
+                        <h6>Gender</h6>
+                        <p id="display_profile_gender">
+                            <span><img src="/static/images/male.png" alt="Image"> {{request.user.gender}}</span>
+                        </p>
+                    </div>
+                    <div>
+                        <h6>Date of Birth</h6>
+                        <p>
+                            <span id="display_profile_dob">
+                                {{request.user.dob}}
+                            </span>
+                            <img class="pull-right" src="/static/images/calender-icon.png" alt="images">
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="">
+            <div class="user-form row" id="edit_profile_div" style="display:none;background:white;width:400px;margin-top:-70px;border-radius:8px;padding:15px 10px;">
+                <form id="edit_profile_form" name="edit_profile_form" method="post" novalidate="novalidate">
+                    {% csrf_token %}
+                    <div class="alert alert-danger" id="profile_error_div" style="display:none;"></div>
+                    <div class="row">
+                        <div class="lft-f-details col">
+                            <div>
+                                <h6>Name</h6>
+                               <input type="text" placeholder="Enter Name" name="name" id="name"
+                                    value="{{request.user.first_name}} {{request.user.last_name}}" tabindex="1"
+                                    maxlength="512" required="" autocomplete="off">
+                            </div><br>
+                            <div>
+                                <h6>Email Id</h6>
+                                <input type="email" value="{{request.user.email}}" disabled="disabled">
+                            </div><br>
+                            <div>
+                                <h6>Age</h6>
+                                <input type="text" placeholder="Enter Age" id="age" name="age" tabindex="4"
+                                    value="{{request.user.age}}" maxlength="3" required="" autocomplete="off">
+                            </div><br>
+                        </div>
+
+                        <div class="rgt-f-details col">
+                            <div>
+                                <h6>Mobile Number</h6>
+                                <input type="text" value="{{request.user.phone}}" disabled="disabled">
+                            </div><br>
+
+
+                            <div>
+                                <h6>Gender</h6>
+
+                                <div class="genderblock">
+                                    <div class="gend_left">
+
+                                        <ul>
+                                            <li>
+                                                <input id="checkbox6" name="gender" type="radio"
+                                                    {% if request.user.gender == 'male' %}checked="checked" {% endif %}
+                                                    value="male" tabindex="2">
+                                                <label for="checkbox6">Male </label>
+                                            </li>
+
+
+                                            <li>
+                                                <input id="checkbox7" name="gender" type="radio"
+                                                    {% if request.user.gender == 'female' %}checked="checked"
+                                                    {% endif %} value="female" tabindex="3">
+
+                                                <label for="checkbox7">Female </label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <br>
+                            <div class="clearfix"></div>
+
+
+
+                            <div class="dobmyprofile">
+                                <h6>Date of Birth</h6>
+                                <input type="date" value="{{request.user.dob|date:"Y-m-d"}}" id="dob" name="dob"
+                                    tabindex="5" placeholder="Date of Birth *" required="">
+                            </div>
+                        </div>
+                    </div><br>
+                    <div class="center-bnt">
+                        <a href="javascript:void(0);" class="btn btn-default btn_whtcolor"
+                            onclick="displayProfileInfo();" style="border-color: white; color:black;">Cancel</a>
+                        <button type="submit" class="btn btn-danger btn_cmncolor" style="background:#0066cc ; border-color:#0066cc;">Update Profile</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+</div>
+
+
+    <script>
+        function displayEditProfile() {
+            $("#edit_profile_div").show();
+            $("#profile_display_info").hide();
+            $("#edit_profile_link").hide();
+        }
+
+        function displayProfileInfo() {
+            $("#edit_profile_div").hide();
+            $("#profile_display_info").show();
+            $("#edit_profile_link").show();
+        }
+        $("#my_pics").on('change', function () {
+            $("#update_pic_form").submit()
+        })
+    </script>
+    {% endblock %}
+    
